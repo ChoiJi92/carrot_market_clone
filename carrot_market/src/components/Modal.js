@@ -27,7 +27,7 @@ const ModalSignup = (props) => {
     return _reg.test(password);
   };
   const nicknameCheck = (nickname) => {
-    let _reg = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]{3,8}$/;
+    let _reg = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]{8,10}$/;
     //닉네임은 3~8자 한글,영어,숫자
     return _reg.test(nickname);
   };
@@ -47,7 +47,7 @@ const ModalSignup = (props) => {
 
     await axios
       //서버에 users 인풋 값 보내주기
-      .post("http://13.209.64.124/users/signup", users)
+      .post("", users)
       //성공시 리스폰스 받아옴
       .then((response) => {
         window.alert("회원가입 성공");
@@ -69,7 +69,7 @@ const ModalSignup = (props) => {
         }
         if (!passwordCheck(password_ref.current.value)) {
           window.alert(
-            "비밀번호는 3 ~ 10자 영문, 숫자 및 특수문자조합으로 작성하세요!"
+            "비밀번호는 8 ~ 10자 영문, 숫자 및 특수문자조합으로 작성하세요!"
           );
           return;
         }
@@ -242,7 +242,7 @@ const ModalLogin = (props) => {
 };
 
 const SignupTitle = styled.h1`
-  color: #3ddaad;
+  color: #ff8a3a;
   font-size: 25px;
 `;
 
@@ -268,30 +268,32 @@ const SignupWrap = styled.div`
 const Input = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 2px 0;
-  color: #38d8ab;
+
+  margin-top: 20px;
+  color: #ff8a3a;
   font-size: 1.2rem;
-  width: 60%;
+  width: 70%;
   label {
-    margin-bottom: 10px;
+    text-align: left;
   }
   input {
     width: 100%;
     height: 30px;
     border: none;
     background-color: whitesmoke;
-    border-bottom: 2px solid #d5ecc2;
+    border-bottom: 2px solid #f7d9c6;
     font-size: 18px;
   }
   & input:focus {
     outline: none;
-    border-bottom: 2px solid #98ddca;
+    border-bottom: 2px solid #ff8a3a;
   }
 `;
 const MiniTitle = styled.p`
   margin-top: 10px;
   color: #999494;
-  font-size: 16px;
+  font-size: 12px;
+  text-align: left;
 `;
 
 const Btn = styled.button`
@@ -300,11 +302,11 @@ const Btn = styled.button`
   width: 30%;
   margin-top: 20px;
   height: 50px;
-  font-size: 1.5rem;
-  background-color: #d0eabb;
+  font-size: 1.2rem;
+  background-color: #f8cbac;
   color: white;
   &:hover {
-    background-color: #98ddca;
+    background-color: #ff8a3a;
   }
 `;
 
