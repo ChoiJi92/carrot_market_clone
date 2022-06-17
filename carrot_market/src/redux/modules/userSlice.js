@@ -29,13 +29,16 @@ const userSlice = createSlice({
   name: "user",
   initialState: {
     isLogin: false,
+    list: [],
   },
 
   reducers: {
     loginUser: (state, action) => {
-      state.isLogin = action.payload.true;
-      console.log(action.payload);
+      state.isLogin = action.payload;
     },
+    // updateUser(state, action) {},
+    // removeUser(state, action) {},
+    // saveUser(state, action) {},
   },
 });
 
