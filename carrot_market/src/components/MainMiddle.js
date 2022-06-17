@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 const MainMiddle = () => {
+    const navigate =useNavigate()
   return (
     <Container>
       <HomeImage>
@@ -15,7 +17,7 @@ const MainMiddle = () => {
         <p>
           동네 주민들과 가깝고 따뜻한 거래를 지금 경험해보세요.
         </p>
-        <button>매물 보기</button>
+        <button onClick={()=>{navigate('/contents')}}>매물 보기</button>
       </Home>
     </Container>
   );
@@ -56,6 +58,10 @@ const Home = styled.div`
     border-radius: 5px;
     border: none;
     background-color: #F1F3F5;
+    cursor: pointer;
+    :hover{
+        background-color:#bdbdbd;
+    }
 
   }
 `;

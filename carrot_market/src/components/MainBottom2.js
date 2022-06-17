@@ -72,6 +72,9 @@ const Home = styled.div`
     cursor: pointer;
     color: black;
     text-decoration: none;
+    :hover{
+        background-color:#bdbdbd;
+    }
   }
 `;
 const HomeImage = styled.div`
