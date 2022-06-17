@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { ModalSignup, ModalLogin } from "../components/Modal"; //modal
-
+import { useSelector } from "react-redux";
 const Header = () => {
   const navigate = useNavigate();
 
   const search_ref = React.useRef(null);
+
+  //로그인 상태 reducer에서 가져옴
+  const user = useSelector((state) => state.user);
+  const users = localStorage.getItem("token");
+
+  // 컴포넌트 렌더링 시 로그인 여부 체크
+  // useEffect(() => {}, [user.isLogin]);
 
   //modal
   //modal창 useState로 열고 닫힘
@@ -27,6 +34,13 @@ const Header = () => {
   const closeLoginModal = () => {
     setModalLoginOpen(false);
   };
+
+  // 로그아웃 시 토큰 삭제
+  const deleteToken = () => {
+    localStorage.removeItem("token");
+    window.location.reload();
+  };
+
   return (
     <Container>
       <Logo>
@@ -49,12 +63,16 @@ const Header = () => {
           ></Search>
         }
         {<Item>당근채팅</Item>}
+        {/* {!users && <Item onClick={openSignupModal}>회원가입</Item>}
+        {!users && <Item onClick={openLoginModal}>로그인</Item>} */}
         {<Item onClick={openSignupModal}>회원가입</Item>}
         {<Item onClick={openLoginModal}>로그인</Item>}
 
         <ModalLogin open={modalLoginOpen} close={closeLoginModal}></ModalLogin>
+        {/* {users && <Title>ooo님</Title>}
+        {users && <Item onClick={deleteToken}>로그아웃</Item>} */}
         {<Title>ooo님</Title>}
-        {<Item>로그아웃</Item>}
+        {<Item onClick={deleteToken}>로그아웃</Item>}
 
         <ModalSignup
           open={modalSignupOpen}
