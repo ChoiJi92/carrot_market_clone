@@ -42,12 +42,37 @@ const ModalSignup = (props) => {
       username: username_ref.current.value,
       nickname: nickname_ref.current.value,
       password: password_ref.current.value,
-      passwordCheck: passwordCheck_ref.current.value,
     };
+    if (
+      username_ref.current.value === "" ||
+      password_ref.current.value === "" ||
+      nickname_ref.current.value === ""
+    ) {
+      window.alert("빈칸을 전부 채워주세요!");
+      return;
+    }
+    if (!emailCheck(username_ref.current.value)) {
+      window.alert("이메일 형식이 맞지 않습니다!");
+      return;
+    }
+    if (!passwordCheck(password_ref.current.value)) {
+      window.alert(
+        "비밀번호는 8 ~ 10자 영문, 숫자 및 특수문자조합으로 작성하세요!"
+      );
+      return;
+    }
+    if (!nicknameCheck(nickname_ref.current.value)) {
+      window.alert("닉네임은 3 ~ 8자 한글,영문,숫자!");
+      return;
+    }
+    if (password_ref.current.value !== passwordCheck_ref.current.value) {
+      window.alert("비밀번호가 일치하지 않습니다.");
+      return;
+    }
 
     await axios
       //서버에 users 인풋 값 보내주기
-      .post("", users)
+      .post("api/user/signup", users)
       //성공시 리스폰스 받아옴
       .then((response) => {
         window.alert("회원가입 성공");
@@ -55,32 +80,6 @@ const ModalSignup = (props) => {
       })
       //실패시 에러메시지 받아옴, 작성한 벨리데이션 문구도 같이
       .catch(function (error) {
-        if (
-          username_ref.current.value === "" ||
-          password_ref.current.value === "" ||
-          nickname_ref.current.value === ""
-        ) {
-          window.alert("빈칸을 전부 채워주세요!");
-          return;
-        }
-        if (!emailCheck(username_ref.current.value)) {
-          window.alert("이메일 형식이 맞지 않습니다!");
-          return;
-        }
-        if (!passwordCheck(password_ref.current.value)) {
-          window.alert(
-            "비밀번호는 8 ~ 10자 영문, 숫자 및 특수문자조합으로 작성하세요!"
-          );
-          return;
-        }
-        if (!nicknameCheck(nickname_ref.current.value)) {
-          window.alert("닉네임은 3 ~ 8자 한글,영문,숫자!");
-          return;
-        }
-        if (password_ref.current.value !== passwordCheck_ref.current.value) {
-          window.alert("비밀번호가 일치하지 않습니다.");
-          return;
-        }
         //회원가입 실패 시 에러메시지 alert
         window.alert(error.response.data.errorMessage);
       });
