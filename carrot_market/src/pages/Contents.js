@@ -21,3 +21,4 @@ const CardList = styled.div`
   
 `
 export default Contents;
+
