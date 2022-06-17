@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Contents = () => {
   const data = useSelector((state) => state.content.content_list);
+  const navigate = useNavigate()
   console.log(data);
   const [region, setRegion] = useState();
   const regionChange = (e) => {
@@ -34,12 +36,15 @@ const Contents = () => {
       </Nav>
       <CardList>
         {data.map((v) => (
-          <Card key={v.id}>
+          <Card key={v.id} onClick={()=>{navigate(`/detail/${v.id}`)}}>
             <img src={v.imageFile}></img>
             <h2>{v.title}</h2>
+            <div>{v.price}</div>
             <div>{v.address}</div>
-            <div>좋아요</div>
-            <div>댓글</div>
+            <div>
+              <span>좋아요0개</span>
+              <span>댓글0개</span>
+            </div>
           </Card>
         ))}
       </CardList>
@@ -48,7 +53,8 @@ const Contents = () => {
 };
 
 const Wrap = styled.div`
-  height: 100vh;
+  /* height: 100vh; */
+  /* flex: 1; */
   /* background-color: green; */
   /* padding-top: 150px; */
 
@@ -75,21 +81,35 @@ const Nav = styled.nav`
 `;
 const CardList = styled.div`
   width: 80%;
-  height: 300px;
   margin: 0 auto;
+  margin-bottom: 50px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  /* grid-template-rows: 1fr 1fr 1fr 1fr; */
-  grid-gap: 10px;
-  img{
+  gap: 10px;
+  
+
+  img {
     border-radius: 10px;
-    width: 250px;
+    width: 100%;
     height: 250px;
     box-sizing: border-box;
   }
-  
 `;
 const Card = styled.div`
-width: 50%;
+  margin-top: 20px;
+  width: 80%;
+  position: relative;
+  left:35px;
+  cursor: pointer;
+  h2{
+    margin-top: 10px;
+  }
+  div{
+    margin-top: 10px;
+  }
+  span{
+    margin-right: 10px;
+    color: #868e96;
+  }
 `;
 export default Contents;
