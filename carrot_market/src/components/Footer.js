@@ -31,7 +31,7 @@ height: 300px;
 position: relative;
 padding: 50px;
 /* position: fixed; */
-/* bottom: 0; */
+bottom: 0;
 `
 const Container = styled.div`
 width: 60%;
