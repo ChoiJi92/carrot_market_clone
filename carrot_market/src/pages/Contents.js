@@ -7,7 +7,6 @@ const Contents = () => {
       <h1>중고거래 인기매물</h1>
       <nav></nav>
       <CardList>
-
       </CardList>
     </Wrap>
   );
