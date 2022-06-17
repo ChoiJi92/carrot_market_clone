@@ -26,12 +26,14 @@ const Footer = () => {
 };
 const Wrap = styled.footer`
 background-color: #495057;
-/* width: 100%; */
-height: 300px;
-position: relative;
+
+height: 250px;
+/* position: relative; */
+
 padding: 50px;
-/* position: fixed; */
+
 bottom: 0;
+
 `
 const Container = styled.div`
 width: 60%;
