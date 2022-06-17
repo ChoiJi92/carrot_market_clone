@@ -6,6 +6,7 @@ import Detail from "./pages/Detail";
 import Write from "./pages/Write";
 import Header from "./components/Header";
 import GlobalStyles from "./assets/css/GlobalStyles";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/write" element={<Write />} />
         <Route path="/write/:id" element={<Write />} />
       </Routes>
+      <Footer/>
     </div>
   );
 }
