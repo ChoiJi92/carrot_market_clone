@@ -5,6 +5,7 @@ const Header = () => {
     <div>
       <h1>Hearder</h1>
       <div>헤더입니다!!!!</div>
+      <div>헤더입니다!!!!</div>
     </div>
   );
 };
