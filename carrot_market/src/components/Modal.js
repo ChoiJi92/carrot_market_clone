@@ -8,9 +8,9 @@ import { loginUserDB } from "../redux/modules/userSlice";
 
 //Signup Modal
 const ModalSignup = (props) => {
-  const email_ref = React.useRef(null);
+  const username_ref = React.useRef(null);
   const password_ref = React.useRef(null);
-  const confirmPassword_ref = React.useRef(null);
+  const passwordCheck_ref = React.useRef(null);
   const nickname_ref = React.useRef(null);
 
   //벨리데이션
@@ -39,10 +39,10 @@ const ModalSignup = (props) => {
   const SignupAxios = async () => {
     // 서버에 보내줄 데이터들
     let users = {
-      email: email_ref.current.value,
+      username: username_ref.current.value,
       nickname: nickname_ref.current.value,
       password: password_ref.current.value,
-      confirmPassword: confirmPassword_ref.current.value,
+      passwordCheck: passwordCheck_ref.current.value,
     };
 
     await axios
@@ -56,14 +56,14 @@ const ModalSignup = (props) => {
       //실패시 에러메시지 받아옴, 작성한 벨리데이션 문구도 같이
       .catch(function (error) {
         if (
-          email_ref.current.value === "" ||
+          username_ref.current.value === "" ||
           password_ref.current.value === "" ||
           nickname_ref.current.value === ""
         ) {
           window.alert("빈칸을 전부 채워주세요!");
           return;
         }
-        if (!emailCheck(email_ref.current.value)) {
+        if (!emailCheck(username_ref.current.value)) {
           window.alert("이메일 형식이 맞지 않습니다!");
           return;
         }
@@ -77,7 +77,7 @@ const ModalSignup = (props) => {
           window.alert("닉네임은 3 ~ 8자 한글,영문,숫자!");
           return;
         }
-        if (password_ref.current.value !== confirmPassword_ref.current.value) {
+        if (password_ref.current.value !== passwordCheck_ref.current.value) {
           window.alert("비밀번호가 일치하지 않습니다.");
           return;
         }
@@ -108,7 +108,12 @@ const ModalSignup = (props) => {
               </SignupHeader>
               <Input>
                 <label htmlFor="email">ID</label>
-                <input id="email" type="email" ref={email_ref} required></input>
+                <input
+                  id="email"
+                  type="email"
+                  ref={username_ref}
+                  required
+                ></input>
                 <MiniTitle>이메일로 아이디를 작성해주세요!</MiniTitle>
               </Input>
               <Input>
@@ -136,7 +141,7 @@ const ModalSignup = (props) => {
                 <input
                   id="confirmPassword"
                   type="password"
-                  ref={confirmPassword_ref}
+                  ref={passwordCheck_ref}
                   required
                 ></input>
               </Input>
@@ -158,7 +163,7 @@ const ModalSignup = (props) => {
 //Login Modal
 const ModalLogin = (props) => {
   // 컴포넌트 렌더링 시 로그인 여부 체크
-  const email_ref = React.useRef(null);
+  const username_ref = React.useRef(null);
   const password_ref = React.useRef(null);
   const dispatch = useDispatch();
 
@@ -170,17 +175,20 @@ const ModalLogin = (props) => {
 
   const loginCheck = () => {
     //벨리데이션
-    if (email_ref.current.value === "" || password_ref.current.value === "") {
+    if (
+      username_ref.current.value === "" ||
+      password_ref.current.value === ""
+    ) {
       window.alert("아이디와 비밀번호를 입력하세요!");
       return;
     }
-    if (!emailCheck(email_ref.current.value)) {
+    if (!emailCheck(username_ref.current.value)) {
       window.alert("이메일 형식이 맞지 않습니다!");
       return;
     } else {
     }
     let users = {
-      email: email_ref.current.value,
+      email: username_ref.current.value,
       password: password_ref.current.value,
     };
     //dispatch 할 때 users 데이터와 close 함수 전달 (함수전달 가능, 함수 전달 할 땐 괄호 없어야함.)
@@ -211,7 +219,12 @@ const ModalLogin = (props) => {
               </SignupHeader>
               <Input>
                 <label htmlFor="email">ID</label>
-                <input id="email" type="email" ref={email_ref} required></input>
+                <input
+                  id="email"
+                  type="email"
+                  ref={username_ref}
+                  required
+                ></input>
 
                 <MiniTitle>이메일로 아이디를 작성해주세요!</MiniTitle>
               </Input>

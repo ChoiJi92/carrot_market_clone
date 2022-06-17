@@ -121,7 +121,7 @@ const Title = styled.div`
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
-  background-color: red;
+  background-color: white;
   position: fixed;
   width: 100%;
   height: 8vh;
