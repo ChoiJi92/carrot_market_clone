@@ -3,6 +3,7 @@ import styled from "styled-components";
 import "../assets/css/modal.css";
 
 import axios from "axios";
+import instance from "../shared/axios";
 import { useDispatch } from "react-redux";
 import { loginUserDB } from "../redux/modules/userSlice";
 
@@ -70,10 +71,10 @@ const ModalSignup = (props) => {
       return;
     }
 
-    await axios
+    await instance
       //서버에 users 인풋 값 보내주기
       // .post("http://54.180.86.234:8080/user/signup", users)
-      .post("http://54.180.86.234/user/signup", users)
+      .post("/user/signup", users)
       //성공시 리스폰스 받아옴
       .then((response) => {
         console.log(response);
@@ -82,6 +83,7 @@ const ModalSignup = (props) => {
       })
       //실패시 에러메시지 받아옴, 작성한 벨리데이션 문구도 같이
       .catch(function (error) {
+        console.log(error)
         //회원가입 실패 시 에러메시지 alert
         window.alert(error.response.data.errorMessage);
       });
@@ -189,11 +191,11 @@ const ModalLogin = (props) => {
     } else {
     }
     let users = {
-      email: username_ref.current.value,
+      username: username_ref.current.value,
       password: password_ref.current.value,
     };
     //dispatch 할 때 users 데이터와 close 함수 전달 (함수전달 가능, 함수 전달 할 땐 괄호 없어야함.)
-    dispatch(loginUserDB({ users, close }));
+    dispatch(loginUserDB( users, close ));
   };
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const { open, close } = props;
