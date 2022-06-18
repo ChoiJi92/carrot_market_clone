@@ -1,16 +1,24 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { BsFillCameraFill, BsLayoutSidebarReverse } from "react-icons/bs";
+import { BsFillCameraFill } from "react-icons/bs";
 import { useParams } from "react-router-dom";
 import ImageUpload from "../components/ImageUpload";
+import { useDispatch, useSelector } from "react-redux";
+import { createContentDB, updateContentDB } from "../redux/modules/contentSlice";
+import instance from "../shared/axios";
 
 const Write = () => {
+  const dispatch = useDispatch()
   const params = useParams();
-  const [region, setRegion] = useState();
-  const [title, setTitle] = useState();
-  const [content, setContent] = useState();
-  const [price, setPrice] = useState();
-  const [preview, setPreview] = useState();
+  const data = useSelector((state) => state.content.content_list).filter(
+    (v) => v.id === Number(params.id)
+  );
+  console.log(data)
+  const [region, setRegion] = useState(data[0]?.address);
+  const [title, setTitle] = useState(data[0]?.title);
+  const [content, setContent] = useState(data[0]?.content);
+  const [price, setPrice] = useState((data[0]?.price));
+  const [preview, setPreview] = useState(data[0]?.imageFile);
   const [image, setImage] = useState();
   // 이미지 미리보기 기능 구현
   const uploadImage = (e) => {
@@ -33,6 +41,44 @@ const Write = () => {
   const priceChange = (e) => {
     setPrice(e.target.value);
   };
+  const imageupload = async () => {
+    console.log(image)
+    const formData = new FormData()
+    formData.append('file', image)
+    await instance.post('/api/images',formData,{headers:{
+      "Content-Type": "multipart/form-data" 
+    }}).then((response) => {
+      console.log(response)
+    }
+    )
+  }
+
+  const addContent = () => {
+    console.log('나는 이미지',image)
+    const formData = new FormData()
+    formData.append('imageFile', image)
+    dispatch(createContentDB({
+      username:'jeahoon100@naver.com',
+      nickname:'최지훈',
+      title:title,
+      price:price,
+      content: content,
+      imageFile:formData,
+      address:region
+    }))
+   }
+   const updateContent = () => {
+    dispatch(updateContentDB({
+      id:data[0].id,
+      username:'jeahoon100@naver.com',
+      nickname:'최지훈',
+      title:title,
+      price:price,
+      content: content,
+      imageFile:preview,
+      address:region
+    }))
+   }
   return (
     <Container>
       <h1>{!params.id ? "중고거래 글쓰기" : "글 수정하기"}</h1>
@@ -53,6 +99,7 @@ const Write = () => {
         className="title"
         placeholder="글 제목"
         onChange={titleChange}
+        value={title}
       ></input>
       <Nav>
         <select onChange={regionChange} value={region}>
@@ -77,23 +124,28 @@ const Write = () => {
       <input
         className="price"
         placeholder="₩ 가격"
-        type="number"
+        // type="number"
         onChange={priceChange}
+        value={price}
       ></input>
       <textarea
         className="content"
         onChange={contentChange}
+        value={content}
         placeholder="게시글 내용을 작성해주세요(가품 및 판매금지품목은 게시가 제한될 수 있어요.)"
       ></textarea>
       {!params.id ? (
-        <Btn disabled={!title || !preview || !content || !price || !region}>
+        <Btn disabled={!title || !preview || !content || !price || !region}
+        onClick={addContent}>
           등록 하기
         </Btn>
       ) : (
-        <Btn disabled={!title || !preview || !content || !price || !region}>
+        <Btn disabled={!title || !preview || !content || !price || !region}
+        onClick={updateContent}>
           수정 하기
         </Btn>
       )}
+      <button onClick={imageupload}>이미지 업로드</button>
     </Container>
   );
 };
@@ -130,7 +182,8 @@ const Container = styled.div`
   textarea {
     width: 80%;
     margin-bottom: 20px;
-    height: 300px;
+    height: 250px;
+    padding: 20px;
   }
   button {
     border-radius: 5px;
@@ -140,17 +193,18 @@ const Container = styled.div`
   }
 `;
 const Btn = styled.button`
-  background-color: ${(props) => (props.disabled ? "#FFFFCC" : "#F5BD25")};
+  background-color: ${(props) => (props.disabled ? "#f8cbac" : "#ff8a3a")};
   border-radius: 5px;
   border: none;
   height: 30px;
   width: 20%;
+  margin-bottom: 20px;
   cursor: pointer;
 `;
 const ImageContainer = styled.div`
   width: 80%;
   height: 150px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   display: flex;
   flex-direction: row;
   label{
