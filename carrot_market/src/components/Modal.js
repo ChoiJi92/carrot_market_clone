@@ -83,7 +83,7 @@ const ModalSignup = (props) => {
       })
       //실패시 에러메시지 받아옴, 작성한 벨리데이션 문구도 같이
       .catch(function (error) {
-        console.log(error)
+        console.log(error);
         //회원가입 실패 시 에러메시지 alert
         window.alert(error.response.data.errorMessage);
       });
@@ -195,7 +195,7 @@ const ModalLogin = (props) => {
       password: password_ref.current.value,
     };
     //dispatch 할 때 users 데이터와 close 함수 전달 (함수전달 가능, 함수 전달 할 땐 괄호 없어야함.)
-    dispatch(loginUserDB( users, close ));
+    dispatch(loginUserDB(users));
   };
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const { open, close } = props;
