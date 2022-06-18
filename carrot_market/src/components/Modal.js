@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import "../assets/css/modal.css";
 
-import axios from "axios";
 import instance from "../shared/axios";
 import { useDispatch } from "react-redux";
 import { loginUserDB } from "../redux/modules/userSlice";
@@ -13,6 +12,24 @@ const ModalSignup = (props) => {
   const password_ref = React.useRef(null);
   const passwordCheck_ref = React.useRef(null);
   const nickname_ref = React.useRef(null);
+
+  //버튼 비활성화
+  const [username, setUsername] = React.useState("");
+  const [nickname, setNickname] = React.useState("");
+  const [pw, setPw] = React.useState("");
+  const [pwCheck, setPwCheck] = React.useState("");
+  const checkUsername = (e) => {
+    setUsername(e.target.value);
+  };
+  const checkNickname = (e) => {
+    setNickname(e.target.value);
+  };
+  const checkPw = (e) => {
+    setPw(e.target.value);
+  };
+  const checkPwCheck = (e) => {
+    setPwCheck(e.target.value);
+  };
 
   //벨리데이션
   const emailCheck = (email) => {
@@ -115,6 +132,8 @@ const ModalSignup = (props) => {
                   id="email"
                   type="email"
                   ref={username_ref}
+                  //버튼비활성화
+                  onChange={checkUsername}
                   required
                 ></input>
                 <MiniTitle>이메일로 아이디를 작성해주세요!</MiniTitle>
@@ -125,6 +144,8 @@ const ModalSignup = (props) => {
                   id="nickName"
                   type="name"
                   ref={nickname_ref}
+                  //버튼비활성화
+                  onChange={checkNickname}
                   required
                 ></input>
                 <MiniTitle>3 ~ 8자 한글,영문,숫자로 작성</MiniTitle>
@@ -135,6 +156,8 @@ const ModalSignup = (props) => {
                   id="password"
                   type="password"
                   ref={password_ref}
+                  //버튼비활성화
+                  onChange={checkPw}
                   required
                 ></input>
                 <MiniTitle>3 ~ 10자 영문, 숫자 및 특수문자조합</MiniTitle>
@@ -145,6 +168,8 @@ const ModalSignup = (props) => {
                   id="confirmPassword"
                   type="password"
                   ref={passwordCheck_ref}
+                  //버튼비활성화
+                  onChange={checkPwCheck}
                   required
                 ></input>
               </Input>
@@ -152,6 +177,7 @@ const ModalSignup = (props) => {
                 onClick={() => {
                   SignupAxios();
                 }}
+                disabled={!username || !nickname || !pw || !pwCheck}
               >
                 회원가입
               </Btn>
@@ -170,6 +196,17 @@ const ModalLogin = (props) => {
   const password_ref = React.useRef(null);
   const dispatch = useDispatch();
 
+  //버튼 비활성화
+  const [username, setUsername] = React.useState("");
+  const [pw, setPw] = React.useState("");
+  const checkUsername = (e) => {
+    setUsername(e.target.value);
+  };
+  const checkPw = (e) => {
+    setPw(e.target.value);
+  };
+
+  //이메일 체크 함수
   const emailCheck = (email) => {
     let _reg =
       /^[0-9a-zA-Z]([-_.0-9a-zA-Z])*@[0-9a-zA-Z]([-_.0-9a-zA-Z])*.([a-zA-Z])*/;
@@ -227,6 +264,8 @@ const ModalLogin = (props) => {
                   type="email"
                   ref={username_ref}
                   required
+                  //버튼비활성화
+                  onChange={checkUsername}
                 ></input>
 
                 <MiniTitle>이메일로 아이디를 작성해주세요!</MiniTitle>
@@ -238,6 +277,8 @@ const ModalLogin = (props) => {
                   id="password"
                   type="password"
                   ref={password_ref}
+                  //버튼 비활성화
+                  onChange={checkPw}
                   required
                 ></input>
                 <MiniTitle>3 ~ 10자 영문, 숫자 및 특수문자조합</MiniTitle>
@@ -246,6 +287,7 @@ const ModalLogin = (props) => {
                 onClick={() => {
                   loginCheck();
                 }}
+                disabled={!username || !pw}
               >
                 로그인
               </Btn>
@@ -319,11 +361,9 @@ const Btn = styled.button`
   margin-top: 20px;
   height: 50px;
   font-size: 1.2rem;
-  background-color: #f8cbac;
+  // 버튼 비활성화
+  background-color: ${(props) => (props.disabled ? "#f8cbac" : "#ff8a3a")};
   color: white;
-  &:hover {
-    background-color: #ff8a3a;
-  }
 `;
 
 export { ModalSignup, ModalLogin };
