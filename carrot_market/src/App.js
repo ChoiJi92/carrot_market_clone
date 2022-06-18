@@ -38,7 +38,7 @@ function App() {
         <Route path="/write" element={<Write />} />
         <Route path="/write/:id" element={<Write />} />
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }
