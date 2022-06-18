@@ -27,7 +27,7 @@ const ModalSignup = (props) => {
     return _reg.test(password);
   };
   const nicknameCheck = (nickname) => {
-    let _reg = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]{8,10}$/;
+    let _reg = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]{3,10}$/;
     //닉네임은 3~8자 한글,영어,숫자
     return _reg.test(nickname);
   };
@@ -72,9 +72,11 @@ const ModalSignup = (props) => {
 
     await axios
       //서버에 users 인풋 값 보내주기
-      .post("api/user/signup", users)
+      // .post("http://54.180.86.234:8080/user/signup", users)
+      .post("http://54.180.86.234/user/signup", users)
       //성공시 리스폰스 받아옴
       .then((response) => {
+        console.log(response);
         window.alert("회원가입 성공");
         close();
       })

@@ -62,17 +62,17 @@ const Header = () => {
             ref={search_ref}
           ></Search>
         }
-        {<Item>당근채팅</Item>}
-        {/* {!users && <Item onClick={openSignupModal}>회원가입</Item>}
-        {!users && <Item onClick={openLoginModal}>로그인</Item>} */}
-        {<Item onClick={openSignupModal}>회원가입</Item>}
-        {<Item onClick={openLoginModal}>로그인</Item>}
+        {users && <Item>당근채팅</Item>}
+        {!users && <Item onClick={openSignupModal}>회원가입</Item>}
+        {!users && <Item onClick={openLoginModal}>로그인</Item>}
+        {/* {<Item onClick={openSignupModal}>회원가입</Item>}
+        {<Item onClick={openLoginModal}>로그인</Item>} */}
 
         <ModalLogin open={modalLoginOpen} close={closeLoginModal}></ModalLogin>
-        {/* {users && <Title>ooo님</Title>}
-        {users && <Item onClick={deleteToken}>로그아웃</Item>} */}
-        {<Title>ooo님</Title>}
-        {<Item onClick={deleteToken}>로그아웃</Item>}
+        {users && <Title>ooo님</Title>}
+        {users && <Item onClick={deleteToken}>로그아웃</Item>}
+        {/* {<Title>ooo님</Title>}
+        {<Item onClick={deleteToken}>로그아웃</Item>} */}
 
         <ModalSignup
           open={modalSignupOpen}

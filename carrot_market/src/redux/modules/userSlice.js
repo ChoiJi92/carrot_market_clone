@@ -7,7 +7,8 @@ export const loginUserDB = ({ users, close }) => {
   return async function (dispatch) {
     await axios
       //서버에 데이터 값 넣기
-      .post("", users)
+      // .post("http://54.180.86.234:8080/user/login", users)
+      .post("http://54.180.86.234/user/login", users)
       .then((response) => {
         const accessToken = response.data.token;
         //서버에서 받은 토큰 저장
@@ -29,16 +30,12 @@ const userSlice = createSlice({
   name: "user",
   initialState: {
     isLogin: false,
-    list: [],
   },
 
   reducers: {
     loginUser: (state, action) => {
       state.isLogin = action.payload;
     },
-    // updateUser(state, action) {},
-    // removeUser(state, action) {},
-    // saveUser(state, action) {},
   },
 });
 
