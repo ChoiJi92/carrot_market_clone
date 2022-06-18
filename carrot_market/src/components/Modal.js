@@ -6,6 +6,8 @@ import instance from "../shared/axios";
 import { useDispatch } from "react-redux";
 import { loginUserDB } from "../redux/modules/userSlice";
 
+// import Kakao from "../components/Kakao";
+
 //Signup Modal
 const ModalSignup = (props) => {
   const username_ref = React.useRef(null);
@@ -291,6 +293,7 @@ const ModalLogin = (props) => {
               >
                 로그인
               </Btn>
+              {/* <Kakao /> */}
             </SignupWrap>
           </main>
         </section>

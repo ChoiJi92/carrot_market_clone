@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { ModalSignup, ModalLogin } from "../components/Modal"; //modal
+
 const Header = () => {
   const navigate = useNavigate();
 
@@ -36,6 +37,8 @@ const Header = () => {
   // 로그아웃 시 토큰 삭제
   const deleteToken = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("nickname");
+    localStorage.removeItem("username");
     window.location.reload();
   };
 
@@ -56,16 +59,17 @@ const Header = () => {
         {
           <Search
             type="text"
-            palceholder="물품이나 동네를 검색해보세요."
+            placeholder="물품이나 동네를 검색해보세요"
             ref={search_ref}
           ></Search>
         }
+        {users && <Title>{localStorage.getItem("nickname")}님</Title>}
         {users && <Item>당근채팅</Item>}
         {!users && <Item onClick={openLoginModal}>로그인</Item>}
         {!users && <Item onClick={openSignupModal}>회원가입</Item>}
 
         <ModalLogin open={modalLoginOpen} close={closeLoginModal}></ModalLogin>
-        {users && <Title>ooo님</Title>}
+
         {users && <Item onClick={deleteToken}>로그아웃</Item>}
 
         <ModalSignup
@@ -83,7 +87,7 @@ const Logo = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-left: 1vw;
+  margin-left: 6vw;
 `;
 const LogoImg = styled.div`
   width: 50px;
@@ -110,20 +114,31 @@ const LogoItem = styled.div`
   }
 `;
 const Search = styled.input`
-  width: 248px;
-  height: 36px;
+  width: 230px;
+  height: 40px;
   text-align: left;
   padding: 9px 12px;
   border: none;
   border-radius: 5px;
   background-color: #f2f3f6;
+  &::placeholder {
+    color: #8a8f98;
+  }
 `;
 
 const List = styled.div`
-  margin-right: 2vw;
+  margin-right: 6vw;
 `;
 
-const Item = styled.div``;
+const Item = styled.div`
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+  height: 40px;
+  width: 77px;
+  border-radius: 3px;
+  outline: 1px solid #d3d3d4;
+`;
 
 const Title = styled.div`
   color: black;
@@ -156,11 +171,11 @@ const Container = styled.div`
     font-size: 16px;
     font-weight: bold;
     color: black;
-    border-color: #d3d3d4;
 
     cursor: pointer;
     &:hover {
       color: #cccccc;
+      background-color: #fcfafa;
     }
   }
 `;
