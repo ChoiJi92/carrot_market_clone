@@ -29,9 +29,11 @@ export const loadDetailContentDB = (id) => {
 // 컨텐츠 생성
 export const createContentDB = (data) => {
     return async function (dispatch) {
-        await instance.post('/api/post', data).then((response) => {
+        await instance.post('/content', data, {headers:{
+            "Content-Type": "multipart/form-data" 
+        }}).then((response) => {
             dispatch(createContent(response.data));
-            window.location.replace('/');
+            // window.location.replace('/');
         });
     };
 };
@@ -39,10 +41,11 @@ export const createContentDB = (data) => {
 export const updateContentDB = (data) => {
     return async function (dispatch) {
         await instance
-            .put(`/api/post/${data.id}/modify`, data)
+            // .put(`/api/post/${data.id}/modify`, data)
+            .put(`/content`, data)
             .then((response) => {
                 dispatch(updateContent(data));
-                window.location.replace('/');
+                // window.location.replace('/');
             });
     };
 };

@@ -11,9 +11,10 @@
       "title": "첫번째",
       "imageFile": "https://search.pstatic.net/common/?src=http%3A%2F%2Fshop1.phinf.naver.net%2F20220524_143%2F1653376346734RpPi6_JPEG%2F4pe2o5h_2022522162858651985.jpg&type=sc960_832",
       "content": "첫번째 입니다!!!",
-      "nickName": "닉네임",
-      "price" : "5,000원",
-      "address": "서울시",
+      "nickname": "닉네임",
+      "username": "jeahoon100@naver.com",
+      "price": "5,000",
+      "address": "서울특별시",
       "date": "2022-06-11 12:52:49",
       "id": 0
     },
@@ -23,7 +24,7 @@
       "imageFile": "https://firebasestorage.googleapis.com/v0/b/react-f0076.appspot.com/o/images%2Fcafe.jpg?alt=media&token=524cf17e-6e7e-4a10-9760-3374874fe823",
       "content": "수정합니다!!",
       "nickName": "닉네임",
-      "price" : "5,000원",
+      "price": "5,000원",
       "address": "서울시",
       "heart_count": [
         "jeahoon100@naver.com",
@@ -36,7 +37,7 @@
       "imageFile": "https://firebasestorage.googleapis.com/v0/b/react-f0076.appspot.com/o/images%2Fback.jpeg?alt=media&token=20a87957-850d-4574-8767-dad50fc60e47",
       "content": "asdfasf",
       "nickName": "닉네임",
-      "price" : "5,000원",
+      "price": "5,000원",
       "address": "서울시",
       "heart_count": [],
       "date": "2022-06-11 12:57:37",
@@ -48,7 +49,7 @@
       "imageFile": "https://firebasestorage.googleapis.com/v0/b/react-f0076.appspot.com/o/images%2Fprofile_placeholder.png?alt=media&token=ddb1866b-be60-41c4-8bb3-a450a25b2130",
       "content": "안녕하세요!!!!!루루루루루루루우아루아루ㅏ루아루ㅏㅣㅁㅇ누리ㅏㅁ운라ㅣㄴ무라ㅣㄴㅁ우라ㅣㅁㄴㅇㄹ",
       "nickName": "닉네임",
-      "price" : "5,000원",
+      "price": "5,000원",
       "address": "서울시",
       "date": "2022-06-12 11:00:23",
       "heart_count": []
@@ -59,7 +60,7 @@
       "imageFile": "https://firebasestorage.googleapis.com/v0/b/react-f0076.appspot.com/o/images%2Fprofile_placeholder.png?alt=media&token=ddb1866b-be60-41c4-8bb3-a450a25b2130",
       "content": "안녕하세요!!!!!루루루루루루루우아루아루ㅏ루아루ㅏㅣㅁㅇ누리ㅏㅁ운라ㅣㄴ무라ㅣㄴㅁ우라ㅣㅁㄴㅇㄹ",
       "nickName": "닉네임",
-      "price" : "5,000원",
+      "price": "5,000원",
       "address": "서울시",
       "date": "2022-06-12 11:00:23",
       "heart_count": []
@@ -70,7 +71,7 @@
       "imageFile": "https://firebasestorage.googleapis.com/v0/b/react-f0076.appspot.com/o/images%2Fprofile_placeholder.png?alt=media&token=ddb1866b-be60-41c4-8bb3-a450a25b2130",
       "content": "안녕하세요!!!!!루루루루루루루우아루아루ㅏ루아루ㅏㅣㅁㅇ누리ㅏㅁ운라ㅣㄴ무라ㅣㄴㅁ우라ㅣㅁㄴㅇㄹ",
       "nickName": "닉네임",
-      "price" : "5,000원",
+      "price": "5,000원",
       "date": "2022-06-12 11:00:23",
       "heart_count": []
     },
@@ -80,7 +81,7 @@
       "imageFile": "https://firebasestorage.googleapis.com/v0/b/react-f0076.appspot.com/o/images%2Fprofile_placeholder.png?alt=media&token=ddb1866b-be60-41c4-8bb3-a450a25b2130",
       "content": "안녕하세요!!!!!루루루루루루루우아루아루ㅏ루아루ㅏㅣㅁㅇ누리ㅏㅁ운라ㅣㄴ무라ㅣㄴㅁ우라ㅣㅁㄴㅇㄹ",
       "nickName": "닉네임",
-      "price" : "5,000원",
+      "price": "5,000원",
       "date": "2022-06-12 11:00:23",
       "heart_count": []
     },
@@ -90,7 +91,7 @@
       "imageFile": "https://firebasestorage.googleapis.com/v0/b/react-f0076.appspot.com/o/images%2Fprofile_placeholder.png?alt=media&token=ddb1866b-be60-41c4-8bb3-a450a25b2130",
       "content": "안녕하세요!!!!!루루루루루루루우아루아루ㅏ루아루ㅏㅣㅁㅇ누리ㅏㅁ운라ㅣㄴ무라ㅣㄴㅁ우라ㅣㅁㄴㅇㄹ",
       "nickName": "닉네임",
-      "price" : "5,000원",
+      "price": "5,000원",
       "date": "2022-06-12 11:00:23",
       "heart_count": []
     },
@@ -100,7 +101,7 @@
       "imageFile": "https://firebasestorage.googleapis.com/v0/b/react-f0076.appspot.com/o/images%2Fprofile_placeholder.png?alt=media&token=ddb1866b-be60-41c4-8bb3-a450a25b2130",
       "content": "안녕하세요!!!!!루루루루루루루우아루아루ㅏ루아루ㅏㅣㅁㅇ누리ㅏㅁ운라ㅣㄴ무라ㅣㄴㅁ우라ㅣㅁㄴㅇㄹ",
       "nickName": "닉네임",
-      "price" : "5,000원",
+      "price": "5,000원",
       "date": "2022-06-12 11:00:23",
       "heart_count": []
     },
@@ -110,7 +111,7 @@
       "imageFile": "https://firebasestorage.googleapis.com/v0/b/react-f0076.appspot.com/o/images%2Fprofile_placeholder.png?alt=media&token=ddb1866b-be60-41c4-8bb3-a450a25b2130",
       "content": "안녕하세요!!!!!루루루루루루루우아루아루ㅏ루아루ㅏㅣㅁㅇ누리ㅏㅁ운라ㅣㄴ무라ㅣㄴㅁ우라ㅣㅁㄴㅇㄹ",
       "nickName": "닉네임",
-      "price" : "5,000원",
+      "price": "5,000원",
       "date": "2022-06-12 11:00:23",
       "heart_count": []
     },
@@ -120,7 +121,7 @@
       "imageFile": "https://firebasestorage.googleapis.com/v0/b/react-f0076.appspot.com/o/images%2Fprofile_placeholder.png?alt=media&token=ddb1866b-be60-41c4-8bb3-a450a25b2130",
       "content": "안녕하세요!!!!!루루루루루루루우아루아루ㅏ루아루ㅏㅣㅁㅇ누리ㅏㅁ운라ㅣㄴ무라ㅣㄴㅁ우라ㅣㅁㄴㅇㄹ",
       "nickName": "닉네임",
-      "price" : "5,000원",
+      "price": "5,000원",
       "address": "서울시",
       "date": "2022-06-12 11:00:23",
       "heart_count": []
@@ -131,7 +132,7 @@
       "imageFile": "https://firebasestorage.googleapis.com/v0/b/react-f0076.appspot.com/o/images%2Fprofile_placeholder.png?alt=media&token=ddb1866b-be60-41c4-8bb3-a450a25b2130",
       "content": "안녕하세요!!!!!루루루루루루루우아루아루ㅏ루아루ㅏㅣㅁㅇ누리ㅏㅁ운라ㅣㄴ무라ㅣㄴㅁ우라ㅣㅁㄴㅇㄹ",
       "nickName": "닉네임",
-      "price" : "5,000원",
+      "price": "5,000원",
       "address": "서울시",
       "date": "2022-06-12 11:00:23",
       "heart_count": []
@@ -142,7 +143,7 @@
       "imageFile": "https://firebasestorage.googleapis.com/v0/b/react-f0076.appspot.com/o/images%2Fprofile_placeholder.png?alt=media&token=ddb1866b-be60-41c4-8bb3-a450a25b2130",
       "content": "안녕하세요!!!!!루루루루루루루우아루아루ㅏ루아루ㅏㅣㅁㅇ누리ㅏㅁ운라ㅣㄴ무라ㅣㄴㅁ우라ㅣㅁㄴㅇㄹ",
       "nickName": "닉네임",
-      "price" : "5,000원",
+      "price": "5,000원",
       "address": "서울시",
       "date": "2022-06-12 11:00:23",
       "heart_count": []
@@ -153,7 +154,7 @@
       "imageFile": "https://firebasestorage.googleapis.com/v0/b/react-f0076.appspot.com/o/images%2Fprofile_placeholder.png?alt=media&token=ddb1866b-be60-41c4-8bb3-a450a25b2130",
       "content": "안녕하세요!!!!!루루루루루루루우아루아루ㅏ루아루ㅏㅣㅁㅇ누리ㅏㅁ운라ㅣㄴ무라ㅣㄴㅁ우라ㅣㅁㄴㅇㄹ",
       "nickName": "닉네임",
-      "price" : "5,000원",
+      "price": "5,000원",
       "address": "서울시",
       "date": "2022-06-12 11:00:23",
       "heart_count": []
@@ -164,7 +165,7 @@
       "imageFile": "https://firebasestorage.googleapis.com/v0/b/react-f0076.appspot.com/o/images%2Fprofile_placeholder.png?alt=media&token=ddb1866b-be60-41c4-8bb3-a450a25b2130",
       "content": "안녕하세요!!!!!루루루루루루루우아루아루ㅏ루아루ㅏㅣㅁㅇ누리ㅏㅁ운라ㅣㄴ무라ㅣㄴㅁ우라ㅣㅁㄴㅇㄹ",
       "nickName": "닉네임",
-      "price" : "5,000원",
+      "price": "5,000원",
       "address": "서울시",
       "date": "2022-06-12 11:00:23",
       "heart_count": []
@@ -175,7 +176,7 @@
       "imageFile": "https://firebasestorage.googleapis.com/v0/b/react-f0076.appspot.com/o/images%2Fprofile_placeholder.png?alt=media&token=ddb1866b-be60-41c4-8bb3-a450a25b2130",
       "content": "안녕하세요!!!!!루루루루루루루우아루아루ㅏ루아루ㅏㅣㅁㅇ누리ㅏㅁ운라ㅣㄴ무라ㅣㄴㅁ우라ㅣㅁㄴㅇㄹ",
       "nickName": "닉네임",
-      "price" : "5,000원",
+      "price": "5,000원",
       "address": "서울시",
       "date": "2022-06-12 11:00:23",
       "heart_count": []
@@ -186,7 +187,7 @@
       "imageFile": "https://firebasestorage.googleapis.com/v0/b/react-f0076.appspot.com/o/images%2Fprofile_placeholder.png?alt=media&token=ddb1866b-be60-41c4-8bb3-a450a25b2130",
       "content": "안녕하세요!!!!!루루루루루루루우아루아루ㅏ루아루ㅏㅣㅁㅇ누리ㅏㅁ운라ㅣㄴ무라ㅣㄴㅁ우라ㅣㅁㄴㅇㄹ",
       "nickName": "닉네임",
-      "price" : "5,000원",
+      "price": "5,000원",
       "address": "서울시",
       "date": "2022-06-12 11:00:23",
       "heart_count": []
@@ -197,7 +198,7 @@
       "imageFile": "https://firebasestorage.googleapis.com/v0/b/react-f0076.appspot.com/o/images%2Fprofile_placeholder.png?alt=media&token=ddb1866b-be60-41c4-8bb3-a450a25b2130",
       "content": "안녕하세요!!!!!루루루루루루루우아루아루ㅏ루아루ㅏㅣㅁㅇ누리ㅏㅁ운라ㅣㄴ무라ㅣㄴㅁ우라ㅣㅁㄴㅇㄹ",
       "nickName": "닉네임",
-      "price" : "5,000원",
+      "price": "5,000원",
       "address": "서울시",
       "date": "2022-06-12 11:00:23",
       "heart_count": []
@@ -207,11 +208,50 @@
       "imageFile": "https://firebasestorage.googleapis.com/v0/b/react-f0076.appspot.com/o/images%2Fcafe.jpg?alt=media&token=80c2f8b9-69fa-4024-8b5f-54be724566e2",
       "content": "fdasf",
       "nickName": "닉네임",
-      "price" : "5,000원",
+      "price": "5,000원",
       "address": "서울시",
       "date": "2022-06-13 13:57:29",
       "heart_count": [],
       "id": 18
+    },
+    {
+      "username": "jeahoon100@naver.com",
+      "nickname": "최지훈",
+      "title": "달달",
+      "price": "50000",
+      "content": "달이 너무 좋아요!!",
+      "imageFile": {},
+      "address": "서울특별시",
+      "id": 19
+    },
+    {
+      "username": "jeahoon100@naver.com",
+      "nickname": "최지훈",
+      "title": "ㅇㅁㄴㄹㅁㅇㄴ",
+      "price": "123123",
+      "content": "ㄹㅇㅁㄴㄹㅁㄴ",
+      "imageFile": {},
+      "address": "부산광역시",
+      "id": 20
+    },
+    {
+      "id": 21
+    },
+    {
+      "id": 22
+    },
+    {
+      "username": "jeahoon100@naver.com",
+      "nickname": "최지훈",
+      "title": "ereafds",
+      "price": "123123",
+      "content": "dasfdsfa",
+      "imageFile": {},
+      "address": "서울특별시",
+      "id": 23
+    },
+    {
+      "id": 24
     }
   ]
 }
