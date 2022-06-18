@@ -32,7 +32,7 @@ const Detail = () => {
     //   },
     // }}
   >{data.map((v)=> 
-    <SwiperSlide style={{width:'100%',borderRadius:'10px'}}><img src={v.imageFile}></img></SwiperSlide>)}
+    <SwiperSlide style={{width:'100%'}}><img src={v.imageFile}></img></SwiperSlide>)}
     {/* <SwiperSlide style={{backgroundColor:'black',height:'500px'}}></SwiperSlide>
     <SwiperSlide style={{backgroundColor:'yellow',height:'500px'}}></SwiperSlide>
     <SwiperSlide style={{backgroundColor:'red',height:'500px'}}></SwiperSlide>
@@ -51,10 +51,10 @@ const Container = styled.div`
   margin: 0 auto;
   padding: 150px;
   img{
-    /* border-radius: 10px; */
-    width:600px;
+    border-radius: 20px;
+    width:480px;
     height: 500px;
-    
+    margin-left: 27px;
   }
 `
 export default Detail;

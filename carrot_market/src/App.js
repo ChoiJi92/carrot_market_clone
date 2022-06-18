@@ -20,13 +20,13 @@ function App() {
       dispatch(loginUser(true));
     }
   });
-  // useEffect(() => {
-  //   async function load() {
-  //     await dispatch(loadContentDB());
-  //     setIsloaded(true);
-  //   }
-  //   load();
-  // }, []);
+  useEffect(() => {
+    async function load() {
+      await dispatch(loadContentDB());
+      setIsloaded(true);
+    }
+    load();
+  }, []);
   return (
     <div className="App">
       <GlobalStyles />
