@@ -1,15 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { ModalSignup, ModalLogin } from "../components/Modal"; //modal
-import { useSelector } from "react-redux";
 const Header = () => {
   const navigate = useNavigate();
 
   const search_ref = React.useRef(null);
 
-  //로그인 상태 reducer에서 가져옴
-  const user = useSelector((state) => state.user);
+  //로그인 상태 로컬스토리에 토큰 유무로 확인(null, 토큰값)
   const users = localStorage.getItem("token");
 
   // 컴포넌트 렌더링 시 로그인 여부 체크
@@ -131,6 +129,7 @@ const Title = styled.div`
   color: black;
   font-size: 16px;
   font-weight: bolder;
+  margin-left: 10px;
 `;
 const Container = styled.div`
   display: flex;
