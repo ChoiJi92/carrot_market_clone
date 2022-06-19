@@ -2,14 +2,18 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { BsFillCameraFill } from "react-icons/bs";
 import { useParams } from "react-router-dom";
-import ImageUpload from "../components/ImageUpload";
 import { useDispatch, useSelector } from "react-redux";
 import { createContentDB, updateContentDB } from "../redux/modules/contentSlice";
 import instance from "../shared/axios";
-
+import { ImCancelCircle } from "react-icons/im";
+import axios from "axios";
 const Write = () => {
   const dispatch = useDispatch()
   const params = useParams();
+  const username = localStorage.getItem('username')
+  const nickname = localStorage.getItem('nickname')
+  console.log(username)
+  console.log(nickname)
   const data = useSelector((state) => state.content.content_list).filter(
     (v) => v.id === Number(params.id)
   );
@@ -53,19 +57,41 @@ const Write = () => {
     )
   }
 
-  const addContent = () => {
+  const addContent = async () => {
     console.log('나는 이미지',image)
     const formData = new FormData()
-    formData.append('imageFile', image)
-    dispatch(createContentDB({
-      username:'jeahoon100@naver.com',
-      nickname:'최지훈',
+    formData.append('file', image)
+    const data =[{
+      username:username,
+      nickname:nickname,
       title:title,
       price:price,
       content: content,
-      imageFile:formData,
       address:region
-    }))
+    }]
+    const json = JSON.stringify(data)
+    console.log(json)
+    const blob = new Blob([json], {type:"application/json"})
+    console.log('나는 블랍',blob)
+    formData.append('contents', blob)
+    
+    await instance.post('/api/posts', formData,{headers:{
+      "Content-Type": "multipart/form-data"
+    }}).then((response) => {
+      console.log(response)
+  }).catch((error)=>{
+    console.log(error)
+  });
+    // dispatch(createContentDB({
+      
+    //   username:'jeahoon100@naver.com',
+    //   nickname:'최지훈',
+    //   title:title,
+    //   price:price,
+    //   content: content,
+    //   imageFile:formData,
+    //   address:region
+    // }))
    }
    const updateContent = () => {
     dispatch(updateContentDB({
@@ -92,14 +118,18 @@ const Write = () => {
             accept="image/*"
             onChange={uploadImage}
           ></input>
-        <ImageUpload image={preview}></ImageUpload>
+          {preview && 
+          <Image>
+            <ImCancelCircle onClick={() => {setPreview('')}} size='25px' style={{position:'absolute',  right:'0',cursor:'pointer', color:'white', mixBlendMode: 'difference'}}></ImCancelCircle>
+            <img src={preview} alt=""></img>
+        </Image>}
       </ImageContainer>
       <input
         id="title"
         className="title"
         placeholder="글 제목"
         onChange={titleChange}
-        value={title}
+        value={title? title : ""}
       ></input>
       <Nav>
         <select onChange={regionChange} value={region}>
@@ -126,7 +156,7 @@ const Write = () => {
         placeholder="₩ 가격"
         // type="number"
         onChange={priceChange}
-        value={price}
+        value={price? price : ""}
       ></input>
       <textarea
         className="content"
@@ -192,6 +222,21 @@ const Container = styled.div`
     width: 20%;
   }
 `;
+const Image = styled.div`
+    width: 15%;
+    height: 100%;
+    position: relative;
+    
+    img{
+        width: 100%;
+        height: 100%;
+        border: none;
+        outline: none;
+        border-radius: 5px;
+        /* background-color: gray; */
+    }
+
+`
 const Btn = styled.button`
   background-color: ${(props) => (props.disabled ? "#f8cbac" : "#ff8a3a")};
   border-radius: 5px;
@@ -203,7 +248,7 @@ const Btn = styled.button`
 `;
 const ImageContainer = styled.div`
   width: 80%;
-  height: 150px;
+  height: 170px;
   margin-bottom: 40px;
   display: flex;
   flex-direction: row;

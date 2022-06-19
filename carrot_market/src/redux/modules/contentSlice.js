@@ -21,40 +21,43 @@ export const loadContentDB = () => {
 // 디테일 페이지에서 해당 컨텐츠만 로드
 export const loadDetailContentDB = (id) => {
     return async function (dispatch) {
-        await instance.get(`/api/post/list/${id}`).then((response) => {
+        await instance.get(`/content/${id}`).then((response) => {
             dispatch(loadDetailContent(response.data));
         });
     };
 };
 // 컨텐츠 생성
 export const createContentDB = (data) => {
+    console.log(data)
     return async function (dispatch) {
         await instance.post('/content', data, {headers:{
             "Content-Type": "multipart/form-data" 
         }}).then((response) => {
+            console.log(response)
             dispatch(createContent(response.data));
-            // window.location.replace('/');
+            // window.location.replace('/content');
         });
     };
 };
 // 컨텐츠 수정
 export const updateContentDB = (data) => {
     return async function (dispatch) {
+        console.log(data)
         await instance
-            // .put(`/api/post/${data.id}/modify`, data)
-            .put(`/content`, data)
+            // .put(`/api/posts/${data.id}`, data)
+            .put(`/content/${data.id}`, data)
             .then((response) => {
                 dispatch(updateContent(data));
-                // window.location.replace('/');
+                // window.location.replace('/content');
             });
     };
 };
 // 컨텐츠 삭제
-export const deleteContentDB = (data) => {
+export const deleteContentDB = (postId) => {
     return async function (dispatch) {
-        await instance.delete(`/api/post/${data}/delete`).then((response) => {
+        await instance.delete(`/api/posts/${postId}`).then((response) => {
             console.log('삭제리스폰스', response.data);
-            dispatch(deleteContent(data));
+            dispatch(deleteContent(postId));
             window.location.replace('/');
         });
     };
