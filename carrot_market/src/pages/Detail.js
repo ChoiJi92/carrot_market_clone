@@ -1,60 +1,106 @@
-import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react"; // basic
-import SwiperCore, { Navigation, Pagination } from "swiper";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import 'swiper/swiper-bundle.min.css'
-import 'swiper/swiper.min.css'
-import { useSelector } from "react-redux";
-// import "swiper/css/navigation";
-// import "swiper/css/pagination";
-// import 'swiper/swiper-bundle.min.css'
-// import 'swiper/swiper.min.css'
-// import 'swiper/components/navigation/navigation.min.css'
-// import 'swiper/components/pagination/pagination.min.css'
-SwiperCore.use([Navigation, Pagination]);
+import CardSlide from "../components/CardSlide";
+import { loadDetailContentDB } from "../redux/modules/contentSlice";
+
 const Detail = () => {
-  const data = useSelector((state) => state.content.content_list);
+  const params = useParams();
+  const dispatch = useDispatch()
+  const [isloaded, setIsloaded] = useState(false);
+  const data = useSelector((state) => state.content.detail_list)
+
+  useEffect(() => {
+    async function detailLoad() {
+      await dispatch(loadDetailContentDB(params.id));
+      // await dispatch(loadCommentDB(params.id));
+      setIsloaded(true);
+    }
+    detailLoad();
+  }, []);
   return (
-    <Container>
-    <Swiper
-    modules={[Navigation, Pagination]}
-    spaceBetween={30} //SwiperSlide 간의 간격을 나타낸다.
-    slidesPerView={1} //Swiper 한 번에 보여지는 slide 개수를 나타낸다.
-    // scrollbar={{ draggable: true }} //slide를 드래그해서 넘길 수 있는 속성이다.
-    centeredSlides
-      onSlideChange={() => console.log("slide change")}
-      onSwiper={swiper => console.log(swiper)}
-    navigation
-    pagination={{ clickable: true }}
-    // breakpoints={{  //반응형을 구현하기 위해서 breakpoints를 둘 수 있다.
-    //   768: {
-    //     slidesPerView: 7,
-    //   },
-    // }}
-  >{data.map((v)=> 
-    <SwiperSlide style={{width:'100%'}}><img src={v.imageFile}></img></SwiperSlide>)}
-    {/* <SwiperSlide style={{backgroundColor:'black',height:'500px'}}></SwiperSlide>
-    <SwiperSlide style={{backgroundColor:'yellow',height:'500px'}}></SwiperSlide>
-    <SwiperSlide style={{backgroundColor:'red',height:'500px'}}></SwiperSlide>
-    <SwiperSlide style={{backgroundColor:'blue',height:'500px'}}></SwiperSlide> */}
-  </Swiper>
-  </Container>
+    <>
+    {isloaded && (
+      <>
+      <CardSlide image={data.imageFile}></CardSlide>
+      <Container>
+        <Profile>
+          <p style={{ fontSize: "20px", fontWeight: "600" }}>닉네임</p>
+          <p style={{ fontSize: "18px" }}>{data.address}</p>
+        </Profile>
+        <Content>
+          <h1>{data.title}</h1>
+          <p style={{ color: "#868e96", fontSize: "15px", marginTop: "4px" }}>
+            작성날짜
+          </p>
+          <p style={{ marginTop: "4px", fontSize: "16px", fontWeight: "bold" }}>
+          {data.price}
+          </p>
+          <div>{data.content}</div>
+          <div>
+            <p>좋아요0개 ∙ 댓글0개</p>
+          </div>
+        </Content>
+        <Comment>
+          <input placeholder="댓글을 입력해 주세요 :)"></input>
+          <button>등록</button>
+        </Comment>
+      </Container>
+      </>
+    )
+}
+    </>
   );
 };
 
 const Container = styled.div`
+  width: 50%;
+  margin: 50px auto;
+`;
+const Profile = styled.div`
+  padding-bottom: 13px;
+  border-bottom: 1px solid #e9ecef;
+  p{
+    margin-bottom: 10px;
+  }
+
+`;
+const Content = styled.div`
+  margin-top: 20px;
+  padding-bottom: 13px;
+  border-bottom: 1px solid #e9ecef;
+  h1{
+    margin-bottom: 5px;
+  }
+  p{
+    margin-bottom: 10px;
+    font-size: 17px;
+  }
+  div{
+    margin-top: 10px;
+    font-size: 17px;
+    p{
+      font-size: 13px;
+      color: #868e96;
+    }
+  }
+`;
+const Comment = styled.div`
+  margin-top: 20px;
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 50%;
-  margin: 0 auto;
-  padding: 150px;
-  img{
-    border-radius: 20px;
-    width:480px;
-    height: 500px;
-    margin-left: 27px;
+  justify-content: space-between;
+  height: 30px;
+  input{
+    width: 90%;
   }
-`
+  button{
+    width: 8%;
+    background-color: #ff8a3a;
+    border: none;
+    border-radius: 5px;
+    color: white;
+  }
+`;
 export default Detail;
