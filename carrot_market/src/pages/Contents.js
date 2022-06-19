@@ -2,15 +2,19 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import Fab from "@mui/material/Fab";
+import AddIcon from "@mui/icons-material/Add";
+import { orange } from "@mui/material/colors";
 
 const Contents = () => {
   const data = useSelector((state) => state.content.content_list);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   console.log(data);
   const [region, setRegion] = useState();
   const regionChange = (e) => {
     setRegion(e.target.value);
   };
+  const color = orange[500];
   return (
     <Wrap>
       <h1>중고거래 인기매물</h1>
@@ -36,7 +40,12 @@ const Contents = () => {
       </Nav>
       <CardList>
         {data.map((v) => (
-          <Card key={v.id} onClick={()=>{navigate(`/detail/${v.id}`)}}>
+          <Card
+            key={v.id}
+            onClick={() => {
+              navigate(`/detail/${v.id}`);
+            }}
+          >
             <img src={v.imageFile}></img>
             <h2>{v.title}</h2>
             <div>{v.price}</div>
@@ -48,7 +57,21 @@ const Contents = () => {
           </Card>
         ))}
       </CardList>
+      <Fab
+        color="primary"
+        aria-label="add"
+        style={{
+          backgroundColor: color,
+          position: "fixed",
+          bottom: "10px",
+          right: "10px",
+        }}
+        onClick={()=>{navigate('/write')}}
+      >
+        <AddIcon />
+      </Fab>
     </Wrap>
+    
   );
 };
 
@@ -83,31 +106,42 @@ const CardList = styled.div`
   width: 80%;
   margin: 0 auto;
   margin-bottom: 50px;
-  display: grid;
+  /* display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 10px;
+  gap: 10px; */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
   
-
+`;
+const Card = styled.div`
+  margin-top: 20px;
+  width: 19%;
+  /* width: calc(70% - 44px); */
+  position: relative;
+  left: 35px;
+  cursor: pointer;
   img {
     border-radius: 10px;
     width: 100%;
     height: 250px;
     box-sizing: border-box;
   }
-`;
-const Card = styled.div`
-  margin-top: 20px;
-  width: 80%;
-  position: relative;
-  left:35px;
-  cursor: pointer;
-  h2{
+  h2 {
+    width: 100%;
+    margin-top: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-weight: normal;
+  }
+  div {
     margin-top: 10px;
   }
-  div{
-    margin-top: 10px;
-  }
-  span{
+  span {
     margin-right: 10px;
     color: #868e96;
   }

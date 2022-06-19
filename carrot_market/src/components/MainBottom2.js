@@ -72,6 +72,7 @@ const Home = styled.div`
     cursor: pointer;
     color: black;
     text-decoration: none;
+    text-align: center;
     :hover{
         background-color:#bdbdbd;
     }

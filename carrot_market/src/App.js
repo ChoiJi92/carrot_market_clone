@@ -39,7 +39,7 @@ function App() {
         <Route path="/write/:id" element={isloaded && <Write />} />
         <Route path="/oauth/kakao/callback"></Route>
       </Routes>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }
