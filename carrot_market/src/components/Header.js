@@ -39,7 +39,8 @@ const Header = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("nickname");
     localStorage.removeItem("username");
-    window.location.reload();
+    navigate("/");
+    // window.location.reload();
   };
 
   return (
@@ -52,7 +53,7 @@ const Header = () => {
             alt="로고"
           ></Image>
         </LogoImg>
-        <LogoItem>중고거래</LogoItem>
+        <LogoItem onClick={() => navigate("/contents")}>중고거래</LogoItem>
       </Logo>
 
       <List>
