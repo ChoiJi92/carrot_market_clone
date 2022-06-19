@@ -35,8 +35,9 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/contents" element={isloaded && <Contents />} />
         <Route path="/detail/:id" element={<Detail />} />
-        <Route path="/write" element={ <Write />} />
+        <Route path="/write" element={<Write />} />
         <Route path="/write/:id" element={isloaded && <Write />} />
+        <Route path="/oauth/kakao/callback"></Route>
       </Routes>
       {/* <Footer /> */}
     </div>

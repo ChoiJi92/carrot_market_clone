@@ -5,8 +5,9 @@ import "../assets/css/modal.css";
 import instance from "../shared/axios";
 import { useDispatch } from "react-redux";
 import { loginUserDB } from "../redux/modules/userSlice";
-
-// import Kakao from "../components/Kakao";
+//카카오 로그인
+import Kakao from "../components/Kakao";
+import { KAKAO_AUTH_URL } from "../shared/Oauth";
 
 //Signup Modal
 const ModalSignup = (props) => {
@@ -198,6 +199,13 @@ const ModalLogin = (props) => {
   const password_ref = React.useRef(null);
   const dispatch = useDispatch();
 
+  //카카오
+  const CLIENT_ID = "c8dd09da9391498bd9018eda3b52499f";
+
+  const REDIRECT_URI = "http://localhost:3000/oauth/callback/kakao";
+
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+
   //버튼 비활성화
   const [username, setUsername] = React.useState("");
   const [pw, setPw] = React.useState("");
@@ -293,7 +301,8 @@ const ModalLogin = (props) => {
               >
                 로그인
               </Btn>
-              {/* <Kakao /> */}
+              {/* 카카오로그인 버튼 */}
+              <Kakao href={KAKAO_AUTH_URL} />
             </SignupWrap>
           </main>
         </section>

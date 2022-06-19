@@ -4,6 +4,7 @@ import instance from "../../shared/axios";
 //login
 export const loginUserDB = (users) => {
   return async function (dispatch) {
+    console.log(users);
     await instance
       //서버에 데이터 값 넣기
       // .post("http://54.180.86.234:8080/user/login", users)
