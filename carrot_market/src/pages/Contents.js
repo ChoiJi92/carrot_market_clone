@@ -91,7 +91,7 @@ const Wrap = styled.div`
   }
 `;
 const Nav = styled.nav`
-  width: 80%;
+  width: 85%;
   text-align: right;
   margin-bottom: 30px;
   select {

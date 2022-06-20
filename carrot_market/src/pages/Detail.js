@@ -16,7 +16,6 @@ const Detail = () => {
   const [isloaded, setIsloaded] = useState(false);
   const data = useSelector((state) => state.content.detail_list)
   const username = localStorage.getItem('username')
-  console.log('나는 디테일',data)
   const createComment=() => {
     dispatch(createCommentDB({
       postID:data.id,

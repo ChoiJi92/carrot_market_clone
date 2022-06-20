@@ -355,7 +355,9 @@ const ModalLogin = (props) => {
                 }
               >
                 {/* <KaKaoBtn onClick={() => kakaoLogin()}> */}
-                <ButtoninnerText>카카오계정 로그인</ButtoninnerText>
+                {/* <ButtoninnerText>카카오계정 로그인</ButtoninnerText> */}
+                {/* <a href= "http://54.180.86.234/oauth2/authorization/kakao?redirect_uri=http://localhost:3000">카카오로그인</a> */}
+                <a href= "http://54.180.86.234/oauth2/authorization/kakao">카카오로그인</a>
                 {/* <ButtoninnerText href={KAKAO_AUTH_URL}>
                   카카오계정 로그인
                 </ButtoninnerText> */}

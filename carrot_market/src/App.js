@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { loginUser } from "./redux/modules/userSlice";
 import { loadContentDB } from "./redux/modules/contentSlice";
 import KakaoAuth from "./shared/KakaoAuth";
+import KakaoLoginRedirect from "./pages/KakaoLoginRedirect";
 
 function App() {
   const dispatch = useDispatch();
@@ -43,12 +44,7 @@ function App() {
         {/* 뷰 확인용 */}
         <Route path="/search/" element={isloaded && <Search />} />
         <Route path="/search/:search" element={isloaded && <Search />} />
-        <Route
-          path="http://54.180.86.234/oauth2/authorization/kakao?redirect_uri=http://localhost:3000"
-          exact
-          // element={<Main />}
-          // component={KakaoAuth}
-        ></Route>
+        <Route path="/oauth" element={<KakaoLoginRedirect />}></Route>
       </Routes>
       <Footer />
     </div>
