@@ -43,10 +43,10 @@ const Contents = () => {
           <Card
             key={v.id}
             onClick={() => {
-              navigate(`/detail/${v.id}`);
+              navigate(`/detail/${v.postID}`);
             }}
           >
-            <img src={v.imagefile}></img>
+            <img src={v.imageFile}></img>
             <h2>{v.title}</h2>
             <div>{v.price}</div>
             <div>{v.address}</div>
