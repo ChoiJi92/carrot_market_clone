@@ -5,9 +5,6 @@ import "../assets/css/modal.css";
 import instance from "../shared/axios";
 import { useDispatch } from "react-redux";
 import { loginUserDB } from "../redux/modules/userSlice";
-//카카오 로그인
-import Kakao from "../components/Kakao";
-import { KAKAO_AUTH_URL } from "../shared/Oauth";
 
 //Signup Modal
 const ModalSignup = (props) => {
@@ -200,11 +197,11 @@ const ModalLogin = (props) => {
   const dispatch = useDispatch();
 
   //카카오
-  const CLIENT_ID = "c8dd09da9391498bd9018eda3b52499f";
-
-  const REDIRECT_URI = "http://localhost:3000/oauth/callback/kakao";
-
-  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+  // const REST_API_KEY = "7ee0afaf69ecc3a879b6cccf83ea5ddd";
+  // const REDIRECT_URI = "http://54.180.86.234/oauth2/authorization/kakao";
+  // const REDIRECT_URI =
+  //   "http://54.180.86.234/oauth2/authorization/kakao?redirect_uri=http://localhost:3000";
+  // const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
   //버튼 비활성화
   const [username, setUsername] = React.useState("");
@@ -302,7 +299,29 @@ const ModalLogin = (props) => {
                 로그인
               </Btn>
               {/* 카카오로그인 버튼 */}
-              <Kakao href={KAKAO_AUTH_URL} />
+              <KaKaoBtn
+                onClick={() =>
+                  window.open(
+                    "http://54.180.86.234/oauth2/authorization/kakao?redirect_uri=http://localhost:3000",
+                    "_blank"
+                  )
+                }
+              >
+                <ButtoninnerText>카카오계정 로그인</ButtoninnerText>
+                {/* <ButtoninnerText href={KAKAO_AUTH_URL}>
+                  카카오계정 로그인
+                </ButtoninnerText> */}
+              </KaKaoBtn>
+              <button
+                onClick={() =>
+                  window.open(
+                    "http://54.180.86.234/oauth2/authorization/naver?redirect_uri=http://localhost:3000",
+                    "_blank"
+                  )
+                }
+              >
+                네이버계정 로그인
+              </button>
             </SignupWrap>
           </main>
         </section>
@@ -378,4 +397,23 @@ const Btn = styled.button`
   color: white;
 `;
 
+const KaKaoBtn = styled.button`
+  border: "none";
+  border-radius: "9px";
+  font-size: "17px";
+  width: "284px";
+  font-weight: "500";
+  height: "32px";
+  cursor: "pointer";
+  background-color: "#fae101";
+  align-items: "center";
+  display: "flex";
+  justify-content: "center";
+  padding: "4px 0px";
+`;
+
+const ButtoninnerText = styled.a`
+  margin: 0;
+  font-size: 14px;
+`;
 export { ModalSignup, ModalLogin };

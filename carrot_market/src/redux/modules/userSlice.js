@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import instance from "../../shared/axios";
+import axios from "axios";
+
 //미들웨어
 //login
 export const loginUserDB = (users) => {
@@ -30,6 +32,33 @@ export const loginUserDB = (users) => {
       });
   };
 };
+
+// 카카오로그인
+// export const kakaoLogin = (code) => {
+//   return function (dispatch) {
+//     console.log(code, "요놈");
+//     axios
+//       .get(`http://54.180.86.234/oauth2/authorization/kakao?code=${code}`)
+//       .then((res) => {
+//         // console.log("res", res);
+//         const token = res.data.user.token;
+//         const username = res.data.user.userId;
+//         const nickname = res.data.user.userName;
+
+//         localStorage.setItem("token", token); //예시로 로컬에 저장
+//         localStorage.setItem("username", username);
+//         localStorage.setItem("nickname", nickname);
+//         dispatch(loginUser(true));
+//         console.log("로그인 확인");
+//         window.location.replace("/"); // 토큰 받고 로그인되면 화면 전환(메인으로)
+//       })
+//       .catch((err) => {
+//         console.log("소셜로그인 에러", err);
+//         window.alert("로그인에 실패하였습니다.");
+//         window.location.replace("/");
+//       });
+//   };
+// };
 
 const userSlice = createSlice({
   name: "user",
