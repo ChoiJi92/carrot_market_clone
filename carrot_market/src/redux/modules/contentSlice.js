@@ -22,7 +22,6 @@ export const loadContentDB = () => {
 export const loadDetailContentDB = (postID) => {
   return async function (dispatch) {
     await instance.get(`/api/posts/${postID}`).then((response) => {
-      console.log('나는 리스폰스',response)
       dispatch(loadDetailContent(response.data));
     });
   };
@@ -40,7 +39,6 @@ export const loadSearchContentDB = (search) => {
 };
 // 컨텐츠 생성
 export const createContentDB = (formData) => {
-  console.log(formData);
   return async function (dispatch) {
     await instance
       .post("/api/posts", formData, {
