@@ -43,11 +43,12 @@ function App() {
         {/* 뷰 확인용 */}
         <Route path="/search/" element={isloaded && <Search />} />
         <Route path="/search/:search" element={isloaded && <Search />} />
-        {/* <Route
-          path="http://54.180.86.234/oauth2/authorization/kakao"
+        <Route
+          path="http://54.180.86.234/oauth2/authorization/kakao?redirect_uri=http://localhost:3000"
           exact
-          component={KakaoAuth}
-        ></Route> */}
+          // element={<Main />}
+          // component={KakaoAuth}
+        ></Route>
       </Routes>
       <Footer />
     </div>

@@ -13,7 +13,7 @@ const Search = () => {
   const color = orange[500];
   return (
     <Wrap>
-      <h1>중고거래 인기매물</h1>
+      <h1>검색키워드</h1>
 
       <CardList>
         {data.map((v) => (

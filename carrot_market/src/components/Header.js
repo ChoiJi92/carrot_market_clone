@@ -6,7 +6,7 @@ import { ModalSignup, ModalLogin } from "../components/Modal"; //modal
 const Header = () => {
   const navigate = useNavigate();
 
-  const search_ref = React.useRef(null);
+  const searchRef = React.useRef(null);
 
   //로그인 상태 로컬스토리에 토큰 유무로 확인(null, 토큰값)
   const users = localStorage.getItem("token");
@@ -39,6 +39,7 @@ const Header = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("nickname");
     localStorage.removeItem("username");
+    localStorage.removeItem("profileImage");
     navigate("/");
     // window.location.reload();
   };
@@ -61,7 +62,7 @@ const Header = () => {
           <Search
             type="text"
             placeholder="물품이나 동네를 검색해보세요"
-            ref={search_ref}
+            ref={searchRef}
           ></Search>
         }
         {users && <Title>{localStorage.getItem("nickname")}님</Title>}

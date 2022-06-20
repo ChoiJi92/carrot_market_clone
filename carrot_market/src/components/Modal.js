@@ -6,11 +6,13 @@ import instance from "../shared/axios";
 import { useDispatch } from "react-redux";
 import { loginUserDB } from "../redux/modules/userSlice";
 
-import useGeolocation from 'react-hook-geolocation'
+import KakaoLogin from "react-kakao-login";
+import { useNavigate } from "react-router-dom";
+
+import useGeolocation from "react-hook-geolocation";
 
 //Signup Modal
 const ModalSignup = (props) => {
-  
   const username_ref = React.useRef(null);
   const password_ref = React.useRef(null);
   const passwordCheck_ref = React.useRef(null);
@@ -21,27 +23,7 @@ const ModalSignup = (props) => {
   const [nickname, setNickname] = React.useState("");
   const [pw, setPw] = React.useState("");
   const [pwCheck, setPwCheck] = React.useState("");
-  const [address, setAddress] = React.useState("")
-  // Geo location
-  const {kakao} = window
-  const location = useGeolocation()
-  let lat = location.latitude
-  let lng = location.longitude
-  const  getAddress = (lat,lng) => {
-    let geocoder = new kakao.maps.services.Geocoder();
-    let coord = new kakao.maps.LatLng(lat, lng);
-    let callback = function(result, status) {
-        if (status === kakao.maps.services.Status.OK) {
-            const address1 = result[0].address.region_1depth_name
-            const address2 = result[0].address.region_2depth_name
-            const address3 = result[0].address.region_3depth_name
-            setAddress(`${address1} ${address2} ${address3}`)
-
-        }
-    };
-    geocoder.coord2Address(coord.getLng(), coord.getLat(), callback)
-    
-}
+  const [address, setAddress] = React.useState("");
   const checkUsername = (e) => {
     setUsername(e.target.value);
   };
@@ -53,6 +35,25 @@ const ModalSignup = (props) => {
   };
   const checkPwCheck = (e) => {
     setPwCheck(e.target.value);
+  };
+
+  // Geo location
+  const { kakao } = window;
+  const location = useGeolocation();
+  let lat = location.latitude;
+  let lng = location.longitude;
+  const getAddress = (lat, lng) => {
+    let geocoder = new kakao.maps.services.Geocoder();
+    let coord = new kakao.maps.LatLng(lat, lng);
+    let callback = function (result, status) {
+      if (status === kakao.maps.services.Status.OK) {
+        const address1 = result[0].address.region_1depth_name;
+        const address2 = result[0].address.region_2depth_name;
+        const address3 = result[0].address.region_3depth_name;
+        setAddress(`${address1} ${address2} ${address3}`);
+      }
+    };
+    geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
   };
 
   //벨리데이션
@@ -84,8 +85,7 @@ const ModalSignup = (props) => {
       username: username_ref.current.value,
       nickname: nickname_ref.current.value,
       password: password_ref.current.value,
-      address:address
-      
+      address: address,
     };
     if (
       username_ref.current.value === "" ||
@@ -141,9 +141,10 @@ const ModalSignup = (props) => {
             <button
               style={{ fontSize: "40px" }}
               className="close"
-              onClick={()=>{
-                close()
-              setAddress("")}}
+              onClick={() => {
+                close();
+                setAddress("");
+              }}
             >
               &times;
             </button>
@@ -204,9 +205,13 @@ const ModalSignup = (props) => {
               <Input>
                 <label htmlFor="address">Address</label>
                 <input id="address" value={address} readOnly></input>
-                <button onClick={() => {
-                getAddress(lat,lng)
-              }}>동네 인증</button>
+                <button
+                  onClick={() => {
+                    getAddress(lat, lng);
+                  }}
+                >
+                  동네 인증
+                </button>
               </Input>
               <Btn
                 onClick={() => {
@@ -237,6 +242,13 @@ const ModalLogin = (props) => {
   // const REDIRECT_URI =
   //   "http://54.180.86.234/oauth2/authorization/kakao?redirect_uri=http://localhost:3000";
   // const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+  const kakaoLogin = () => {
+    window.location.replace(
+      "http://54.180.86.234/oauth2/authorization/kakao?redirect_uri=http://localhost:3000",
+      "_blank"
+    );
+    window.location.replace("/");
+  };
 
   //버튼 비활성화
   const [username, setUsername] = React.useState("");
@@ -336,12 +348,13 @@ const ModalLogin = (props) => {
               {/* 카카오로그인 버튼 */}
               <KaKaoBtn
                 onClick={() =>
-                  window.open(
-                    "http://54.180.86.234/oauth2/authorization/kakao?redirect_uri=http://localhost:3000",
-                    "_blank"
-                  )
+                  // window.location.replace("https://www.google.com/")
+                  {
+                    kakaoLogin();
+                  }
                 }
               >
+                {/* <KaKaoBtn onClick={() => kakaoLogin()}> */}
                 <ButtoninnerText>카카오계정 로그인</ButtoninnerText>
                 {/* <ButtoninnerText href={KAKAO_AUTH_URL}>
                   카카오계정 로그인
@@ -412,7 +425,7 @@ const Input = styled.div`
     outline: none;
     border-bottom: 2px solid #ff8a3a;
   }
-  button{
+  button {
     position: absolute;
     right: 0;
     bottom: 0;
@@ -423,15 +436,13 @@ const Input = styled.div`
   }
 `;
 const Address = styled.div`
-display: flex;
-flex-direction: row;
-justify-content: space-between;
-background-color: green;
-div{
-
-}
-
-`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: green;
+  div {
+  }
+`;
 const MiniTitle = styled.p`
   margin-top: 10px;
   color: #999494;
