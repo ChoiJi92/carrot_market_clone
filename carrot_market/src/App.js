@@ -10,10 +10,12 @@ import Footer from "./components/Footer";
 import { useDispatch } from "react-redux";
 import { loginUser } from "./redux/modules/userSlice";
 import { loadContentDB } from "./redux/modules/contentSlice";
+import KakaoAuth from "./shared/KakaoAuth";
 
 function App() {
   const dispatch = useDispatch();
   const [isloaded, setIsloaded] = useState(false);
+
   //useEffect로 쿠키에 토큰 있을시 로그인 체크
   useEffect(() => {
     if (localStorage.getItem("token") !== null) {
@@ -37,7 +39,11 @@ function App() {
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/write" element={<Write />} />
         <Route path="/write/:id" element={isloaded && <Write />} />
-        <Route path="/oauth/kakao/callback"></Route>
+        {/* <Route
+          path="http://54.180.86.234/oauth2/authorization/kakao"
+          exact
+          component={KakaoAuth}
+        ></Route> */}
       </Routes>
       <Footer />
     </div>
