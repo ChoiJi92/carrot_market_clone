@@ -46,7 +46,7 @@ const Contents = () => {
               navigate(`/detail/${v.id}`);
             }}
           >
-            <img src={v.imageFile}></img>
+            <img src={v.imagefile}></img>
             <h2>{v.title}</h2>
             <div>{v.price}</div>
             <div>{v.address}</div>

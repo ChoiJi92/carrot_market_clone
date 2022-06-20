@@ -20,7 +20,7 @@ const Write = () => {
   const [title, setTitle] = useState(data[0]?.title);
   const [content, setContent] = useState(data[0]?.content);
   const [price, setPrice] = useState(data[0]?.price);
-  const [preview, setPreview] = useState(data[0]?.imageFile);
+  const [preview, setPreview] = useState(data[0]?.imagefile);
   const [image, setImage] = useState();
   // 이미지 미리보기 기능 구현
   const uploadImage = (e) => {
@@ -46,7 +46,7 @@ const Write = () => {
 
   const addContent = async () => {
     const formData = new FormData();
-    formData.append("file", image);
+    formData.append("file", image ? image : preview);
     const data = {
       username: username,
       nickname: nickname,
@@ -65,7 +65,6 @@ const Write = () => {
     const formData = new FormData();
     formData.append("file", image);
     const data = {
-      postID:params.id,
       username: username,
       nickname: nickname,
       title: title,
@@ -76,7 +75,7 @@ const Write = () => {
     const json = JSON.stringify(data);
     const blob = new Blob([json], { type: "application/json" });
     formData.append("contents", blob);
-    dispatch(updateContentDB(formData));
+    dispatch(updateContentDB(formData,params.id));
   };
   return (
     <Container>

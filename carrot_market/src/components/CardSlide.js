@@ -40,6 +40,7 @@ function SamplePrevArrow(props) {
   );
 }
 const CardSlide = ({image}) => {
+  console.log(image)
   const settings = {
     dots: true,
     infinite: true,
