@@ -4,6 +4,7 @@ import Main from "./pages/Main";
 import Contents from "./pages/Contents";
 import Detail from "./pages/Detail";
 import Write from "./pages/Write";
+import Search from "./pages/Search";
 import Header from "./components/Header";
 import GlobalStyles from "./assets/css/GlobalStyles";
 import Footer from "./components/Footer";
@@ -39,6 +40,9 @@ function App() {
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/write" element={<Write />} />
         <Route path="/write/:id" element={isloaded && <Write />} />
+        {/* 뷰 확인용 */}
+        <Route path="/search/" element={isloaded && <Search />} />
+        <Route path="/search/:search" element={isloaded && <Search />} />
         {/* <Route
           path="http://54.180.86.234/oauth2/authorization/kakao"
           exact
