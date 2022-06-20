@@ -346,23 +346,21 @@ const ModalLogin = (props) => {
                 로그인
               </Btn>
               {/* 카카오로그인 버튼 */}
-              <KaKaoBtn
-                onClick={() =>
-                  // window.location.replace("https://www.google.com/")
-                  {
-                    kakaoLogin();
-                  }
-                }
-              >
-                {/* <KaKaoBtn onClick={() => kakaoLogin()}> */}
-                {/* <ButtoninnerText>카카오계정 로그인</ButtoninnerText> */}
-                {/* <a href= "http://54.180.86.234/oauth2/authorization/kakao?redirect_uri=http://localhost:3000">카카오로그인</a> */}
-                <a href= "http://54.180.86.234/oauth2/authorization/kakao">카카오로그인</a>
-                {/* <ButtoninnerText href={KAKAO_AUTH_URL}>
+              <KakaoBtn>
+                <img
+                  src="https://t1.daumcdn.net/cfile/tistory/99792D425D0895002A"
+                  alt="kakao"
+                  width="20px"
+                  height="20px"
+                  size="cover"
+                  position="center"
+                  radius="3px"
+                />
+                <ButtoninnerText href="http://54.180.86.234/oauth2/authorization/kakao">
                   카카오계정 로그인
-                </ButtoninnerText> */}
-              </KaKaoBtn>
-              <button
+                </ButtoninnerText>
+              </KakaoBtn>
+              {/* <button
                 onClick={() =>
                   window.open(
                     "http://54.180.86.234/oauth2/authorization/naver?redirect_uri=http://localhost:3000",
@@ -371,7 +369,7 @@ const ModalLogin = (props) => {
                 }
               >
                 네이버계정 로그인
-              </button>
+              </button> */}
             </SignupWrap>
           </main>
         </section>
@@ -455,32 +453,38 @@ const MiniTitle = styled.p`
 const Btn = styled.button`
   border: none;
   border-color: white;
+  border-radius: 5px;
   width: 30%;
   margin-top: 20px;
-  height: 50px;
+  height: 40px;
   font-size: 1.2rem;
   // 버튼 비활성화
   background-color: ${(props) => (props.disabled ? "#f8cbac" : "#ff8a3a")};
   color: white;
 `;
 
-const KaKaoBtn = styled.button`
-  border: "none";
-  border-radius: "9px";
-  font-size: "17px";
-  width: "284px";
-  font-weight: "500";
-  height: "32px";
-  cursor: "pointer";
-  background-color: "#fae101";
-  align-items: "center";
-  display: "flex";
-  justify-content: "center";
-  padding: "4px 0px";
+const KakaoBtn = styled.button`
+  border: none;
+  border-radius: 5px;
+  background-color: #fae101;
+  width: 70%;
+  margin-top: 10px;
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 `;
 
 const ButtoninnerText = styled.a`
   margin: 0;
   font-size: 14px;
+  a:link {
+    color: black;
+  }
+  a:visited {
+    color: black;
+  }
+  text-decoration: none; ;
 `;
 export { ModalSignup, ModalLogin };
