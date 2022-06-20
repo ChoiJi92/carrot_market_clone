@@ -14,13 +14,14 @@ const Write = () => {
   const username = localStorage.getItem("username");
   const nickname = localStorage.getItem("nickname");
   const data = useSelector((state) => state.content.content_list).filter(
-    (v) => v.id === Number(params.id)
+    (v) => v.postID === Number(params.id)
   );
+  console.log(data)
   const [region, setRegion] = useState(data[0]?.address);
   const [title, setTitle] = useState(data[0]?.title);
-  const [content, setContent] = useState(data[0]?.content);
+  const [content, setContent] = useState(data[0]?.contents);
   const [price, setPrice] = useState(data[0]?.price);
-  const [preview, setPreview] = useState(data[0]?.imagefile);
+  const [preview, setPreview] = useState(data[0]?.imageFile);
   const [image, setImage] = useState();
   // 이미지 미리보기 기능 구현
   const uploadImage = (e) => {

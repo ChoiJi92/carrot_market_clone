@@ -51,7 +51,7 @@ export const createContentDB = (formData) => {
       .then((response) => {
         console.log(response);
         dispatch(createContent(response.data));
-        // window.location.replace('/content');
+        window.location.replace('/contents');
       })
       .catch((error) => {
         console.log(error);
@@ -68,7 +68,7 @@ export const updateContentDB = (data,postID) => {
       }})
       .then((response) => {
         console.log(response)
-        dispatch(updateContent(data));
+        dispatch(updateContent(response.data));
         // window.location.replace('/content');
       });
   };
