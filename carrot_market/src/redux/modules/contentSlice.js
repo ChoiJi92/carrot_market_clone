@@ -27,7 +27,17 @@ export const loadDetailContentDB = (postID) => {
     });
   };
 };
-
+export const loadSearchContentDB = (search) => {
+  return async function (dispatch, getState) {
+    // const page = getState().content.page;
+    await instance
+      .get('/api/posts', { params: { search: search } })
+      .then((response) => {
+        const data = response.data;
+        dispatch(loadSearchContent(data));
+      });
+  };
+};
 // 컨텐츠 생성
 export const createContentDB = (formData) => {
   console.log(formData);
@@ -49,12 +59,13 @@ export const createContentDB = (formData) => {
   };
 };
 // 컨텐츠 수정
-export const updateContentDB = (data) => {
+export const updateContentDB = (data,postID) => {
   return async function (dispatch) {
     console.log(data);
     await instance
-      // .put(`/api/posts/${data.id}`, data)
-      .put(`/content/${data.id}`, data)
+      .put(`/api/posts/${postID}`, data ,{headers:{
+        "Content-Type": "multipart/form-data",
+      }})
       .then((response) => {
         console.log(response)
         dispatch(updateContent(data));
@@ -78,6 +89,7 @@ const contentSlice = createSlice({
   initialState: {
     content_list: [],
     detail_list: [],
+    search_list:[],
     page: 0,
   },
   reducers: {
@@ -88,6 +100,9 @@ const contentSlice = createSlice({
     },
     loadDetailContent: (state, action) => {
       state.detail_list = action.payload;
+    },
+    loadSearchContent: (state, action) => {
+      state.search_list = action.payload;
     },
     heartLoadContent: (state, action) => {
       state.content_list = action.payload;
@@ -113,6 +128,7 @@ const contentSlice = createSlice({
 export const {
   loadContent,
   loadDetailContent,
+  loadSearchContent,
   heartLoadContent,
   createContent,
   updateContent,

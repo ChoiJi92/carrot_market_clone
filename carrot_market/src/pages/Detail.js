@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import CardSlide from "../components/CardSlide";
-import { loadDetailContentDB } from "../redux/modules/contentSlice";
+import { deleteContentDB, loadDetailContentDB } from "../redux/modules/contentSlice";
 import profile from '../assets/css/profile.png'
-import { createCommentDB, loadCommentDB } from "../redux/modules/commentSlice";
+import { createCommentDB } from "../redux/modules/commentSlice";
 import CommentList from "../components/CommentList";
 
 const Detail = () => {
   const params = useParams();
+  const navigate =useNavigate()
   const dispatch = useDispatch()
   const [comment, setComment] = useState("")
   const [isloaded, setIsloaded] = useState(false);
   const data = useSelector((state) => state.content.detail_list)
   const username = localStorage.getItem('username')
-  console.log(data)
+  console.log('나는 디테일',data)
   const createComment=() => {
     dispatch(createCommentDB({
       postID:data.id,
@@ -43,7 +44,7 @@ const Detail = () => {
     <>
     {isloaded && (
       <>
-      <CardSlide image={data.imageFile}></CardSlide>
+      <CardSlide image={data.imagefile}></CardSlide>
       <Container>
         <Profile>
           <div><img src={profile}></img></div>
@@ -57,8 +58,10 @@ const Detail = () => {
           <h1>{data.title}</h1>
           <div className="button">
             {username===data.username ? <>
-              <button>수정</button>
-          <button>삭제</button></> : <></>}
+              <button onClick={()=>{navigate(`/write/${data.id}`)}}>수정</button>
+          <button onClick={()=>{
+            dispatch(deleteContentDB(data.id))
+          }}>삭제</button></> : <></>}
          
           </div>
           </div>

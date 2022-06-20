@@ -16,7 +16,6 @@ export const createCommentDB = (data) => {
     await instance.post(`/api/posts/${data.postID}/comments`, data).then((response) => {
         console.log(response)  
         dispatch(createComment(response.data));
-
     });
   };
 };
