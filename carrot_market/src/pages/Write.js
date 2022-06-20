@@ -3,25 +3,23 @@ import styled from "styled-components";
 import { BsFillCameraFill } from "react-icons/bs";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { createContentDB, updateContentDB } from "../redux/modules/contentSlice";
-import instance from "../shared/axios";
+import {
+  createContentDB,
+  updateContentDB,
+} from "../redux/modules/contentSlice";
 import { ImCancelCircle } from "react-icons/im";
-import axios from "axios";
 const Write = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const params = useParams();
-  const username = localStorage.getItem('username')
-  const nickname = localStorage.getItem('nickname')
-  console.log(username)
-  console.log(nickname)
+  const username = localStorage.getItem("username");
+  const nickname = localStorage.getItem("nickname");
   const data = useSelector((state) => state.content.content_list).filter(
     (v) => v.id === Number(params.id)
   );
-  console.log(data)
   const [region, setRegion] = useState(data[0]?.address);
   const [title, setTitle] = useState(data[0]?.title);
   const [content, setContent] = useState(data[0]?.content);
-  const [price, setPrice] = useState((data[0]?.price));
+  const [price, setPrice] = useState(data[0]?.price);
   const [preview, setPreview] = useState(data[0]?.imageFile);
   const [image, setImage] = useState();
   // 이미지 미리보기 기능 구현
@@ -45,91 +43,82 @@ const Write = () => {
   const priceChange = (e) => {
     setPrice(e.target.value);
   };
-  const imageupload = async () => {
-    console.log(image)
-    const formData = new FormData()
-    formData.append('file', image)
-    await instance.post('/api/images',formData,{headers:{
-      "Content-Type": "multipart/form-data" 
-    }}).then((response) => {
-      console.log(response)
-    }
-    )
-  }
 
   const addContent = async () => {
-    console.log('나는 이미지',image)
-    const formData = new FormData()
-    formData.append('file', image)
-    const data =[{
-      username:username,
-      nickname:nickname,
-      title:title,
-      price:price,
+    const formData = new FormData();
+    formData.append("file", image);
+    const data = {
+      username: username,
+      nickname: nickname,
+      title: title,
+      price: price,
       content: content,
-      address:region
-    }]
-    const json = JSON.stringify(data)
-    console.log(json)
-    const blob = new Blob([json], {type:"application/json"})
-    console.log('나는 블랍',blob)
-    formData.append('contents', blob)
-    
-    await instance.post('/api/posts', formData,{headers:{
-      "Content-Type": "multipart/form-data"
-    }}).then((response) => {
-      console.log(response)
-  }).catch((error)=>{
-    console.log(error)
-  });
-    // dispatch(createContentDB({
-      
-    //   username:'jeahoon100@naver.com',
-    //   nickname:'최지훈',
-    //   title:title,
-    //   price:price,
-    //   content: content,
-    //   imageFile:formData,
-    //   address:region
-    // }))
-   }
-   const updateContent = () => {
-    dispatch(updateContentDB({
-      id:data[0].id,
-      username:'jeahoon100@naver.com',
-      nickname:'최지훈',
-      title:title,
-      price:price,
+      address: region,
+    };
+    const json = JSON.stringify(data);
+    const blob = new Blob([json], { type: "application/json" });
+    formData.append("contents", blob);
+
+    dispatch(createContentDB(formData));
+  };
+  const updateContent = async () => {
+    const formData = new FormData();
+    formData.append("file", image);
+    const data = {
+      postID:params.id,
+      username: username,
+      nickname: nickname,
+      title: title,
+      price: price,
       content: content,
-      imageFile:preview,
-      address:region
-    }))
-   }
+      address: region,
+    };
+    const json = JSON.stringify(data);
+    const blob = new Blob([json], { type: "application/json" });
+    formData.append("contents", blob);
+    dispatch(updateContentDB(formData));
+  };
   return (
     <Container>
       <h1>{!params.id ? "중고거래 글쓰기" : "글 수정하기"}</h1>
       <ImageContainer>
-          <label htmlFor="image"> <BsFillCameraFill size="35px"></BsFillCameraFill></label>
-          <input
-            className="image"
-            id='image'
-            type="file"
-            multiple
-            accept="image/*"
-            onChange={uploadImage}
-          ></input>
-          {preview && 
+        <label htmlFor="image">
+          {" "}
+          <BsFillCameraFill size="35px"></BsFillCameraFill>
+        </label>
+        <input
+          className="image"
+          id="image"
+          type="file"
+          multiple
+          accept="image/*"
+          onChange={uploadImage}
+        ></input>
+        {preview && (
           <Image>
-            <ImCancelCircle onClick={() => {setPreview('')}} size='25px' style={{position:'absolute',  right:'0',cursor:'pointer', color:'white', mixBlendMode: 'difference'}}></ImCancelCircle>
+            <ImCancelCircle
+              onClick={() => {
+                setPreview("");
+              }}
+              size="25px"
+              style={{
+                position: "absolute",
+                right: "0",
+                cursor: "pointer",
+                color: "white",
+                mixBlendMode: "difference",
+              }}
+            ></ImCancelCircle>
             <img src={preview} alt=""></img>
-        </Image>}
+          </Image>
+        )}
       </ImageContainer>
       <input
         id="title"
         className="title"
         placeholder="글 제목"
         onChange={titleChange}
-        value={title? title : ""}
+        value={title ? title : ""}
       ></input>
       <Nav>
         <select onChange={regionChange} value={region}>
@@ -156,7 +145,7 @@ const Write = () => {
         placeholder="₩ 가격"
         // type="number"
         onChange={priceChange}
-        value={price? price : ""}
+        value={price ? price : ""}
       ></input>
       <textarea
         className="content"
@@ -165,17 +154,20 @@ const Write = () => {
         placeholder="게시글 내용을 작성해주세요(가품 및 판매금지품목은 게시가 제한될 수 있어요.)"
       ></textarea>
       {!params.id ? (
-        <Btn disabled={!title || !preview || !content || !price || !region}
-        onClick={addContent}>
+        <Btn
+          disabled={!title || !preview || !content || !price || !region}
+          onClick={addContent}
+        >
           등록 하기
         </Btn>
       ) : (
-        <Btn disabled={!title || !preview || !content || !price || !region}
-        onClick={updateContent}>
+        <Btn
+          disabled={!title || !preview || !content || !price || !region}
+          onClick={updateContent}
+        >
           수정 하기
         </Btn>
       )}
-      <button onClick={imageupload}>이미지 업로드</button>
     </Container>
   );
 };
@@ -223,20 +215,19 @@ const Container = styled.div`
   }
 `;
 const Image = styled.div`
-    width: 15%;
-    height: 100%;
-    position: relative;
-    
-    img{
-        width: 100%;
-        height: 100%;
-        border: none;
-        outline: none;
-        border-radius: 5px;
-        /* background-color: gray; */
-    }
+  width: 15%;
+  height: 100%;
+  position: relative;
 
-`
+  img {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    /* background-color: gray; */
+  }
+`;
 const Btn = styled.button`
   background-color: ${(props) => (props.disabled ? "#f8cbac" : "#ff8a3a")};
   border-radius: 5px;
@@ -252,7 +243,7 @@ const ImageContainer = styled.div`
   margin-bottom: 40px;
   display: flex;
   flex-direction: row;
-  label{
+  label {
     border-radius: 5px;
     border: 1px solid;
     width: 15%;

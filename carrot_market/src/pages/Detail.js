@@ -4,13 +4,33 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import CardSlide from "../components/CardSlide";
 import { loadDetailContentDB } from "../redux/modules/contentSlice";
+import profile from '../assets/css/profile.png'
+import { createCommentDB, loadCommentDB } from "../redux/modules/commentSlice";
+import CommentList from "../components/CommentList";
 
 const Detail = () => {
   const params = useParams();
   const dispatch = useDispatch()
+  const [comment, setComment] = useState("")
   const [isloaded, setIsloaded] = useState(false);
   const data = useSelector((state) => state.content.detail_list)
-
+  const username = localStorage.getItem('username')
+  console.log(data)
+  const createComment=() => {
+    dispatch(createCommentDB({
+      postID:data.id,
+      comment:comment
+    }))
+    setComment("")
+  }
+  const commentChange = (e) =>{
+    setComment(e.target.value)
+  }
+  const onKeyPress = (e) => {
+    if (e.key === "Enter") {
+      createComment();
+    }
+  };
   useEffect(() => {
     async function detailLoad() {
       await dispatch(loadDetailContentDB(params.id));
@@ -26,13 +46,24 @@ const Detail = () => {
       <CardSlide image={data.imageFile}></CardSlide>
       <Container>
         <Profile>
-          <p style={{ fontSize: "20px", fontWeight: "600" }}>닉네임</p>
-          <p style={{ fontSize: "18px" }}>{data.address}</p>
+          <div><img src={profile}></img></div>
+          <div className="name">
+          <p style={{ fontSize: "15px", fontWeight: "600" }}>{data.nickname}</p>
+          <p style={{ fontSize: "15px" }}>서울특별시</p>
+          </div>
         </Profile>
         <Content>
+          <div className="title">
           <h1>{data.title}</h1>
+          <div className="button">
+            {username===data.username ? <>
+              <button>수정</button>
+          <button>삭제</button></> : <></>}
+         
+          </div>
+          </div>
           <p style={{ color: "#868e96", fontSize: "15px", marginTop: "4px" }}>
-            작성날짜
+            {data.modifiedAt}
           </p>
           <p style={{ marginTop: "4px", fontSize: "16px", fontWeight: "bold" }}>
           {data.price}
@@ -43,9 +74,10 @@ const Detail = () => {
           </div>
         </Content>
         <Comment>
-          <input placeholder="댓글을 입력해 주세요 :)"></input>
-          <button>등록</button>
+          <input placeholder="댓글을 입력해 주세요 :)" value={comment} onChange={commentChange} onKeyPress={onKeyPress}></input>
+          <button onClick={createComment}>등록</button>
         </Comment>
+        <CommentList></CommentList>
       </Container>
       </>
     )
@@ -61,15 +93,53 @@ const Container = styled.div`
 const Profile = styled.div`
   padding-bottom: 13px;
   border-bottom: 1px solid #e9ecef;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   p{
-    margin-bottom: 10px;
+    margin-bottom: 5px;
   }
-
+  img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .name{
+    margin-left: 8px;
+  }
 `;
 const Content = styled.div`
   margin-top: 20px;
   padding-bottom: 13px;
   border-bottom: 1px solid #e9ecef;
+  width: 100%;
+  .title{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* align-items: center; */
+    /* width: 70%; */
+  }
+  .button{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 10%;
+    
+
+    button{
+      border: none;
+      background-color: transparent;
+      margin-left: 5px;
+      font-size: medium;
+      cursor: pointer;
+      :hover{
+        color:#ff8a3a;
+      }
+    }
+  }
   h1{
     margin-bottom: 5px;
   }

@@ -1,9 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import contentReducer from "./modules/contentSlice";
-
+import commentReducer from './modules/commentSlice'
 const store = configureStore({
   reducer: {
-    content:contentReducer
+    content:contentReducer,
+    comment:commentReducer
   },
 });
 

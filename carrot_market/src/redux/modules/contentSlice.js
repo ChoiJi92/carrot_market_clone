@@ -19,48 +19,58 @@ export const loadContentDB = () => {
   };
 };
 // 디테일 페이지에서 해당 컨텐츠만 로드
-export const loadDetailContentDB = (id) => {
-    return async function (dispatch) {
-        await instance.get(`/content/${id}`).then((response) => {
-            dispatch(loadDetailContent(response.data));
-        });
-    };
+export const loadDetailContentDB = (postID) => {
+  return async function (dispatch) {
+    await instance.get(`/api/posts/${postID}`).then((response) => {
+      console.log('나는 리스폰스',response)
+      dispatch(loadDetailContent(response.data));
+    });
+  };
 };
+
 // 컨텐츠 생성
-export const createContentDB = (data) => {
-    console.log(data)
-    return async function (dispatch) {
-        await instance.post('/content', data, {headers:{
-            "Content-Type": "multipart/form-data" 
-        }}).then((response) => {
-            console.log(response)
-            dispatch(createContent(response.data));
-            // window.location.replace('/content');
-        });
-    };
+export const createContentDB = (formData) => {
+  console.log(formData);
+  return async function (dispatch) {
+    await instance
+      .post("/api/posts", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        dispatch(createContent(response.data));
+        // window.location.replace('/content');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 };
 // 컨텐츠 수정
 export const updateContentDB = (data) => {
-    return async function (dispatch) {
-        console.log(data)
-        await instance
-            // .put(`/api/posts/${data.id}`, data)
-            .put(`/content/${data.id}`, data)
-            .then((response) => {
-                dispatch(updateContent(data));
-                // window.location.replace('/content');
-            });
-    };
+  return async function (dispatch) {
+    console.log(data);
+    await instance
+      // .put(`/api/posts/${data.id}`, data)
+      .put(`/content/${data.id}`, data)
+      .then((response) => {
+        console.log(response)
+        dispatch(updateContent(data));
+        // window.location.replace('/content');
+      });
+  };
 };
 // 컨텐츠 삭제
 export const deleteContentDB = (postId) => {
-    return async function (dispatch) {
-        await instance.delete(`/api/posts/${postId}`).then((response) => {
-            console.log('삭제리스폰스', response.data);
-            dispatch(deleteContent(postId));
-            window.location.replace('/');
-        });
-    };
+  return async function (dispatch) {
+    await instance.delete(`/api/posts/${postId}`).then((response) => {
+      console.log("삭제리스폰스", response.data);
+      dispatch(deleteContent(postId));
+      window.location.replace("/");
+    });
+  };
 };
 
 const contentSlice = createSlice({
