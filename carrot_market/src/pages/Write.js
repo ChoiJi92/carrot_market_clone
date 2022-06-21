@@ -16,13 +16,13 @@ const Write = () => {
   const data = useSelector((state) => state.content.content_list).filter(
     (v) => v.postID === Number(params.id)
   );
-    console.log(data)
+  console.log(data[0].imagefile)
   const [region, setRegion] = useState(data[0]?.address);
   const [title, setTitle] = useState(data[0]?.title);
   const [content, setContent] = useState(data[0]?.content);
   const [price, setPrice] = useState(data[0]?.price);
   const [preview, setPreview] = useState(
-    data[0]?.imagefile ? [data[0]?.imagefile] : []
+    data[0]?.imagefile ? data[0]?.imagefile : []
   );
   const [image, setImage] = useState([]);
   // 이미지 미리보기 기능 구현
@@ -77,18 +77,12 @@ const Write = () => {
   };
   const updateContent = async () => {
     const formData = new FormData();
-    console.log(image);
-    console.log(preview);
-    if (image) {
-      image.forEach((file) => formData.append("file", file));
-    } else {
-      preview.forEach((file) => formData.append("file", file));
-    }
+    image.forEach((file) => formData.append("file", file));
 
     const data = {
       // username: username,
       // nickname: nickname,
-      
+      imagefile:data[0].imagefile,
       title: title,
       price: price,
       content: content,
@@ -119,7 +113,7 @@ const Write = () => {
           onChange={uploadImage}
           // disabled={preview.length===5}
           onClick={(e) => {
-            if (preview.length === 5) {
+            if (preview.length >= 5) {
               e.preventDefault();
               alert("사진은 최대 5장만 올릴 수 있어요 :)");
             }

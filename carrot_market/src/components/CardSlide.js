@@ -13,11 +13,11 @@ function SampleNextArrow(props) {
       className={className}
       style={{
         ...style,
-        width: '12px',
+        width: "12px",
         background:
           'url("https://d1unjqcospf8gs.cloudfront.net/assets/home/articles/icon-slider-right-134c53f44716c3bef227ec30da385b4b09c9c068d339a617a23093718f379d02.svg")',
-        backgroundRepeat:'no-repeat'
-        }}
+        backgroundRepeat: "no-repeat",
+      }}
       onClick={onClick}
     />
   );
@@ -29,17 +29,17 @@ function SamplePrevArrow(props) {
       className={className}
       style={{
         ...style,
-        width: '12px',
+        width: "12px",
         display: "block",
         background:
           'url("https://d1unjqcospf8gs.cloudfront.net/assets/home/articles/icon-slider-left-4c0e713bfa2cd12bd959e6dd9ef456cd6fc094953c41e605f6b9a59bc1680686.svg")',
-        backgroundRepeat:'no-repeat'
+        backgroundRepeat: "no-repeat",
       }}
       onClick={onClick}
     />
   );
 }
-const CardSlide = ({image}) => {
+const CardSlide = ({ image }) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -52,7 +52,9 @@ const CardSlide = ({image}) => {
   return (
     <Wrap>
       <Slider {...settings}>
-          <img src={image}></img>
+        {image.map((v) => (
+          <img src={v}></img>
+        ))}
       </Slider>
     </Wrap>
   );
@@ -61,16 +63,16 @@ const Wrap = styled.div`
   padding-top: 11vh;
   width: 42%;
   margin: 0 auto;
-  .slick-prev:before{
+  .slick-prev:before {
     display: none;
   }
-  .slick-next:before{
+  .slick-next:before {
     display: none;
   }
-  .slick-dots{
+  .slick-dots {
     margin-bottom: 30px;
   }
-  .slick-dots li button:before{
+  .slick-dots li button:before {
     /* color: white; */
   }
   img {

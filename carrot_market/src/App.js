@@ -13,6 +13,7 @@ import { loginUser } from "./redux/modules/userSlice";
 import { loadContentDB } from "./redux/modules/contentSlice";
 import KakaoAuth from "./shared/KakaoAuth";
 import KakaoLoginRedirect from "./pages/KakaoLoginRedirect";
+import RegionContent from "./pages/RegionContent";
 
 function App() {
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ function App() {
       <Routes>
         <Route path="/" element={isloaded && <Main />} />
         <Route path="/contents" element={isloaded && <Contents />} />
+        <Route path="/region/:region" element={isloaded && <RegionContent />} />
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/write" element={<Write />} />
         <Route path="/write/:id" element={isloaded && <Write />} />

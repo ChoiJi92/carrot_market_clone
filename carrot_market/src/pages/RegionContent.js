@@ -1,27 +1,25 @@
-import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import { orange } from "@mui/material/colors";
 import Like from "../components/Like";
+import { useState } from "react";
 
-const Contents = () => {
-  const data = useSelector((state) => state.content.content_list);
+const RegionContent = () => {
+  const params = useParams()
+  const data = useSelector((state) => state.content.content_list).filter(v => v.address.includes(params.region.slice(0,2)))
   const navigate = useNavigate();
-  const username = localStorage.getItem("username");
-  console.log(data);
-  const [region, setRegion] = useState();
+  const [region, setRegion] = useState(params.region);
   const regionChange = (e) => {
     setRegion(e.target.value);
-    console.log((e.target.value));
     navigate(`/region/${e.target.value}`);
   };
   const color = orange[500];
   return (
     <Wrap>
-      <h1>중고거래 인기매물</h1>
+      <h1>{params.region} 중고거래 인기매물</h1>
       <Nav>
         <select onChange={regionChange} value={region}>
           <option value="default">지역을 선택하세요</option>
@@ -54,31 +52,25 @@ const Contents = () => {
             <h2>{v.title}</h2>
             <div>{v.price}</div>
             <div>{v.address}</div>
-            <Like
-              likeCnt={v.likeCnt}
-              commentCnt={v.commentCnt}
-              postID={v.postID}
-            ></Like>
+            <Like likeCnt={v.likeCnt} commentCnt={v.commentCnt} postID={v.postID}></Like>
           </Card>
         ))}
       </CardList>
-      {username && (
-        <Fab
-          color="primary"
-          aria-label="add"
-          style={{
-            backgroundColor: color,
-            position: "fixed",
-            bottom: "10px",
-            right: "10px",
-          }}
-          onClick={() => {
-            navigate("/write");
-          }}
-        >
-          <AddIcon />
-        </Fab>
-      )}
+      <Fab
+        color="primary"
+        aria-label="add"
+        style={{
+          backgroundColor: color,
+          position: "fixed",
+          bottom: "10px",
+          right: "10px",
+        }}
+        onClick={() => {
+          navigate("/write");
+        }}
+      >
+        <AddIcon />
+      </Fab>
     </Wrap>
   );
 };
@@ -152,5 +144,10 @@ const Card = styled.div`
     color: #868e96;
   }
 `;
-
-export default Contents;
+const LikeCnt = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+export default RegionContent;
