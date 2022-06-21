@@ -1,4 +1,5 @@
 import React from "react";
+import BestContent from "../components/BestContent";
 import MainBottom from "../components/MainBottom";
 import MainBottom2 from "../components/MainBottom2";
 import MainMiddle from "../components/MainMiddle";
@@ -11,6 +12,7 @@ function Main() {
     <MainMiddle/>
     <MainBottom/>
     <MainBottom2/>
+    <BestContent/>
     </>
   );
 }

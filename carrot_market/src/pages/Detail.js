@@ -5,7 +5,7 @@ import styled from "styled-components";
 import CardSlide from "../components/CardSlide";
 import { deleteContentDB, loadDetailContentDB } from "../redux/modules/contentSlice";
 import profile from '../assets/css/profile.png'
-import { createCommentDB } from "../redux/modules/commentSlice";
+import { createCommentDB, loadCommentDB } from "../redux/modules/commentSlice";
 import CommentList from "../components/CommentList";
 
 const Detail = () => {
@@ -15,10 +15,11 @@ const Detail = () => {
   const [comment, setComment] = useState("")
   const [isloaded, setIsloaded] = useState(false);
   const data = useSelector((state) => state.content.detail_list)
+  console.log(data)
   const username = localStorage.getItem('username')
   const createComment=() => {
     dispatch(createCommentDB({
-      postID:data.id,
+      postID:data.postID,
       comment:comment
     }))
     setComment("")
@@ -34,7 +35,7 @@ const Detail = () => {
   useEffect(() => {
     async function detailLoad() {
       await dispatch(loadDetailContentDB(params.id));
-      // await dispatch(loadCommentDB(params.id));
+      await dispatch(loadCommentDB(params.id));
       setIsloaded(true);
     }
     detailLoad();
@@ -46,7 +47,7 @@ const Detail = () => {
       <CardSlide image={data.imagefile}></CardSlide>
       <Container>
         <Profile>
-          <div><img src={profile}></img></div>
+          <div><img src={data.profileImage ? data.profileImage : profile}></img></div>
           <div className="name">
           <p style={{ fontSize: "15px", fontWeight: "600" }}>{data.nickname}</p>
           <p style={{ fontSize: "15px" }}>서울특별시</p>
@@ -57,9 +58,9 @@ const Detail = () => {
           <h1>{data.title}</h1>
           <div className="button">
             {username===data.username ? <>
-              <button onClick={()=>{navigate(`/write/${data.id}`)}}>수정</button>
+              <button onClick={()=>{navigate(`/write/${data.postID}`)}}>수정</button>
           <button onClick={()=>{
-            dispatch(deleteContentDB(data.id))
+            dispatch(deleteContentDB(data.postID))
           }}>삭제</button></> : <></>}
          
           </div>
@@ -75,11 +76,15 @@ const Detail = () => {
             <p>좋아요0개 ∙ 댓글0개</p>
           </div>
         </Content>
+        {username && 
+        <>
         <Comment>
           <input placeholder="댓글을 입력해 주세요 :)" value={comment} onChange={commentChange} onKeyPress={onKeyPress}></input>
           <button onClick={createComment}>등록</button>
         </Comment>
         <CommentList></CommentList>
+        </>
+}
       </Container>
       </>
     )
@@ -173,6 +178,7 @@ const Comment = styled.div`
     border: none;
     border-radius: 5px;
     color: white;
+    cursor: pointer;
   }
 `;
 export default Detail;

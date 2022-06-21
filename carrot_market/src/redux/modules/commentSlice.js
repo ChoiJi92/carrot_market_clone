@@ -5,7 +5,6 @@ import instance from "../../shared/axios";
 export const loadCommentDB = (postID) => {
   return async function (dispatch) {
     await instance.get(`/api/posts/${postID}/comments`).then((response) => {
-        console.log('미들웨어코멘트',response)
         dispatch(loadComment(response.data));
     });
   };
@@ -14,7 +13,7 @@ export const loadCommentDB = (postID) => {
 export const createCommentDB = (data) => {
   return async function (dispatch) {
     await instance.post(`/api/posts/${data.postID}/comments`, data).then((response) => {
-        console.log(response)  
+
         dispatch(createComment(response.data));
     });
   };
@@ -23,16 +22,17 @@ export const createCommentDB = (data) => {
 export const updateCommentDB = (data) => {
   
   return async function (dispatch){
-    await instance.put(`/api/posts/${data.postId}/${data.commentId}/modify`, data).then((response)=>{
-      dispatch(updateComment(data))
+    await instance.put(`/api/posts/${data.postID}/comments/${data.commentID}`, data).then((response)=>{
+      console.log(response.data)  
+      dispatch(updateComment(response.data))
     })
   }
 }
 // comment 삭제
 export const deleteCommentDB = (data) => {
   return async function (dispatch){
-    await instance.delete(`/api/posts/${data.postId}/comments/${data.commentId}`).then((response) => {
-      dispatch(deleteComment(data.commentId))
+    await instance.delete(`/api/posts/${data.postID}/comments/${data.commentID}`).then((response) => {
+      dispatch(deleteComment(data.commentID))
     })
   }
 }
@@ -55,7 +55,7 @@ const commentSlice = createSlice({
       state.comment_list[index] = action.payload;
     },
     deleteComment: (state,action) =>{
-      const new_comment = state.comment_list.filter(v => v.id !== action.payload )
+      const new_comment = state.comment_list.filter(v => v.commentID !== action.payload )
       state.comment_list = new_comment
     }
   },

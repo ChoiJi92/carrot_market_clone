@@ -17,7 +17,10 @@ const MainMiddle = () => {
         <p>
           동네 주민들과 가깝고 따뜻한 거래를 지금 경험해보세요.
         </p>
-        <button onClick={()=>{navigate('/contents')}}>매물 보기</button>
+        <Button>
+        <button onClick={()=>{navigate('/contents')}}>인기매물 보기</button>
+        <a href='https://www.daangn.com/trust'>믿을 수 있는 중고거래</a>
+        </Button>
       </Home>
     </Container>
   );
@@ -51,7 +54,9 @@ const Home = styled.div`
     text-align: left;
     margin-bottom: 20px;
   }
-  button{
+`;
+const Button = styled.div`
+ button{
     width: 30%;
     height: 50px;
     font-size: large;
@@ -62,9 +67,24 @@ const Home = styled.div`
     :hover{
         background-color:#bdbdbd;
     }
-
   }
-`;
+  a{
+    width: 50%;
+    padding: 14.5px 25px;
+    font-size: large;
+    margin-left: 15px;
+    border-radius: 5px;
+    border: none;
+    background-color: #F1F3F5;
+    cursor: pointer;
+    color: black;
+    text-decoration: none;
+    text-align: center;
+    :hover{
+        background-color:#bdbdbd;
+    }
+  }
+`
 const HomeImage = styled.div`
   img {
     width: 532px;
