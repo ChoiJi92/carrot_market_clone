@@ -7,6 +7,11 @@ const Header = () => {
   const navigate = useNavigate();
 
   const searchRef = React.useRef(null);
+  const onKeyPress = (e) => {
+    if(e.key === 'Enter'){
+      navigate(`/search/${searchRef.current.value}`)
+    }
+  }
 
   //로그인 상태 로컬스토리에 토큰 유무로 확인(null, 토큰값)
   const users = localStorage.getItem("token");
@@ -63,6 +68,7 @@ const Header = () => {
             type="text"
             placeholder="물품이나 동네를 검색해보세요"
             ref={searchRef}
+            onKeyPress={onKeyPress}
           ></Search>
         }
         {users && <Title>{localStorage.getItem("nickname")}님</Title>}

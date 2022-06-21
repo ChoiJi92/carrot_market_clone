@@ -1,13 +1,9 @@
 import React, { useEffect } from 'react';
 
 const KakaoLoginRedirect = () => {
-    // const params = useParams()
-    // console.log(params)
-    // 토큰 get
+    
 
     useEffect(() => {
-        // localStorage.clear();
-        // localStorage.setItem("token", params.token);
         // 토큰 get
         const accessToken = new URL(window.location.href).searchParams.get(
             "Authorization"

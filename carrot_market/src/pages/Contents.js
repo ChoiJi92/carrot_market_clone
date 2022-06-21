@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import { orange } from "@mui/material/colors";
+import Like from "../components/Like";
 
 const Contents = () => {
   const data = useSelector((state) => state.content.content_list);
@@ -40,20 +41,23 @@ const Contents = () => {
       </Nav>
       <CardList>
         {data.map((v) => (
-          <Card
-            key={v.id}
-            onClick={() => {
-              navigate(`/detail/${v.postID}`);
-            }}
-          >
-            <img src={v.imageFile}></img>
+          <Card key={v.postID}>
+            <img
+              src={v.imagefile}
+              onClick={() => {
+                navigate(`/detail/${v.postID}`);
+              }}
+            ></img>
             <h2>{v.title}</h2>
             <div>{v.price}</div>
             <div>{v.address}</div>
-            <div>
-              <span>좋아요0개</span>
-              <span>댓글0개</span>
-            </div>
+            <LikeCnt>
+              <div>
+                <span>좋아요0개</span>
+                <span>댓글{v.commentCnt}개</span>
+              </div>
+              <Like></Like>
+            </LikeCnt>
           </Card>
         ))}
       </CardList>
@@ -66,12 +70,13 @@ const Contents = () => {
           bottom: "10px",
           right: "10px",
         }}
-        onClick={()=>{navigate('/write')}}
+        onClick={() => {
+          navigate("/write");
+        }}
       >
         <AddIcon />
       </Fab>
     </Wrap>
-    
   );
 };
 
@@ -91,7 +96,7 @@ const Wrap = styled.div`
   }
 `;
 const Nav = styled.nav`
-  width: 85%;
+  width: 83%;
   text-align: right;
   margin-bottom: 30px;
   select {
@@ -115,20 +120,18 @@ const CardList = styled.div`
   justify-content: center;
   align-items: center;
   gap: 30px;
-  
 `;
 const Card = styled.div`
   margin-top: 20px;
   width: 19%;
   /* width: calc(70% - 44px); */
-  position: relative;
   left: 35px;
-  cursor: pointer;
   img {
     border-radius: 10px;
     width: 100%;
     height: 250px;
     box-sizing: border-box;
+    cursor: pointer;
   }
   h2 {
     width: 100%;
@@ -145,5 +148,11 @@ const Card = styled.div`
     margin-right: 10px;
     color: #868e96;
   }
+`;
+const LikeCnt = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 `;
 export default Contents;

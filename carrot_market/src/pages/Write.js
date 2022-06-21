@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import { BsFillCameraFill } from "react-icons/bs";
 import { useParams } from "react-router-dom";
@@ -16,21 +16,32 @@ const Write = () => {
   const data = useSelector((state) => state.content.content_list).filter(
     (v) => v.postID === Number(params.id)
   );
-  console.log(data)
+    console.log(data)
   const [region, setRegion] = useState(data[0]?.address);
   const [title, setTitle] = useState(data[0]?.title);
-  const [content, setContent] = useState(data[0]?.contents);
+  const [content, setContent] = useState(data[0]?.content);
   const [price, setPrice] = useState(data[0]?.price);
-  const [preview, setPreview] = useState(data[0]?.imageFile);
-  const [image, setImage] = useState();
+  const [preview, setPreview] = useState(
+    data[0]?.imagefile ? [data[0]?.imagefile] : []
+  );
+  const [image, setImage] = useState([]);
   // 이미지 미리보기 기능 구현
   const uploadImage = (e) => {
-    let reader = new FileReader(); // 이미지 미리보기!!!
-    reader.readAsDataURL(e.target.files[0]);
-    reader.onload = () => {
-      setPreview(reader.result);
-    };
-    setImage(e.target.files[0]);
+    let imagelist = [];
+    let filelist = [];
+    for (let i = 0; i < e.target.files.length; i++) {
+      console.log(e.target.files[i]);
+      filelist[i] = e.target.files[i];
+      let reader = new FileReader(); // 이미지 미리보기!!!
+      reader.readAsDataURL(e.target.files[i]);
+      reader.onload = () => {
+        imagelist[i] = reader.result;
+        setPreview([...preview, ...imagelist]);
+        console.log(preview)
+      };
+    }
+    setImage([...filelist]);
+    e.target.value = ''
   };
   const titleChange = (e) => {
     setTitle(e.target.value);
@@ -47,7 +58,9 @@ const Write = () => {
 
   const addContent = async () => {
     const formData = new FormData();
-    formData.append("file", image ? image : preview);
+    console.log(image);
+    image.forEach((file) => formData.append("file", file));
+
     const data = {
       username: username,
       nickname: nickname,
@@ -64,10 +77,18 @@ const Write = () => {
   };
   const updateContent = async () => {
     const formData = new FormData();
-    formData.append("file", image);
+    console.log(image);
+    console.log(preview);
+    if (image) {
+      image.forEach((file) => formData.append("file", file));
+    } else {
+      preview.forEach((file) => formData.append("file", file));
+    }
+
     const data = {
-      username: username,
-      nickname: nickname,
+      // username: username,
+      // nickname: nickname,
+      
       title: title,
       price: price,
       content: content,
@@ -76,15 +97,18 @@ const Write = () => {
     const json = JSON.stringify(data);
     const blob = new Blob([json], { type: "application/json" });
     formData.append("contents", blob);
-    dispatch(updateContentDB(formData,params.id));
+    dispatch(updateContentDB(formData, params.id));
   };
   return (
     <Container>
       <h1>{!params.id ? "중고거래 글쓰기" : "글 수정하기"}</h1>
       <ImageContainer>
         <label htmlFor="image">
-          {" "}
           <BsFillCameraFill size="35px"></BsFillCameraFill>
+          <p>
+            {preview.length}
+            <span>/5</span>
+          </p>
         </label>
         <input
           className="image"
@@ -93,25 +117,34 @@ const Write = () => {
           multiple
           accept="image/*"
           onChange={uploadImage}
+          // disabled={preview.length===5}
+          onClick={(e) => {
+            if (preview.length === 5) {
+              e.preventDefault();
+              alert("사진은 최대 5장만 올릴 수 있어요 :)");
+            }
+          }}
         ></input>
-        {preview && (
-          <Image>
-            <ImCancelCircle
-              onClick={() => {
-                setPreview("");
-              }}
-              size="25px"
-              style={{
-                position: "absolute",
-                right: "0",
-                cursor: "pointer",
-                color: "white",
-                mixBlendMode: "difference",
-              }}
-            ></ImCancelCircle>
-            <img src={preview} alt=""></img>
-          </Image>
-        )}
+
+        {preview &&
+          preview.map((v, i) => (
+            <Image key={Math.random()}>
+              <ImCancelCircle
+                onClick={() => {
+                  setPreview(preview.filter((value, index) => index !== i));
+                }}
+                size="25px"
+                style={{
+                  position: "absolute",
+                  right: "0",
+                  cursor: "pointer",
+                  color: "white",
+                  mixBlendMode: "difference",
+                }}
+              ></ImCancelCircle>
+              <img src={v} alt=""></img>
+            </Image>
+          ))}
       </ImageContainer>
       <input
         id="title"
@@ -146,6 +179,7 @@ const Write = () => {
         // type="number"
         onChange={priceChange}
         value={price ? price : ""}
+        // value={price}
       ></input>
       <textarea
         className="content"
@@ -155,14 +189,26 @@ const Write = () => {
       ></textarea>
       {!params.id ? (
         <Btn
-          disabled={!title || !preview || !content || !price || !region}
+          disabled={
+            !title ||
+            preview.length === 0 ||
+            !content ||
+            !price ||
+            region === "default"
+          }
           onClick={addContent}
         >
           등록 하기
         </Btn>
       ) : (
         <Btn
-          disabled={!title || !preview || !content || !price || !region}
+          disabled={
+            !title ||
+            preview.length === 0 ||
+            !content ||
+            !price ||
+            region === "default"
+          }
           onClick={updateContent}
         >
           수정 하기
@@ -218,7 +264,7 @@ const Image = styled.div`
   width: 15%;
   height: 100%;
   position: relative;
-
+  margin-right: 30px;
   img {
     width: 100%;
     height: 100%;
@@ -249,7 +295,7 @@ const ImageContainer = styled.div`
     width: 15%;
     height: 100%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     cursor: pointer;
@@ -258,6 +304,13 @@ const ImageContainer = styled.div`
   input {
     display: none;
     color: transparent;
+  }
+  p {
+    margin-top: 5px;
+    color: #ff8a3a;
+  }
+  span {
+    color: black;
   }
 `;
 const Nav = styled.nav`

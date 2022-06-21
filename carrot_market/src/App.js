@@ -36,7 +36,7 @@ function App() {
       <GlobalStyles />
       <Header />
       <Routes>
-        <Route path="/" element={<Main />} />
+        <Route path="/" element={isloaded && <Main />} />
         <Route path="/contents" element={isloaded && <Contents />} />
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/write" element={<Write />} />

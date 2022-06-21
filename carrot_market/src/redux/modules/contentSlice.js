@@ -7,7 +7,7 @@ export const loadContentDB = () => {
   return async function (dispatch, getState) {
     // const page = getState().content.page;
     await instance
-      // .get('/api/post/list/', { params: { page: page } })
+      // .get('/api/post/list/?page=1', { params: { page: page } })
       .get("/api/posts")
       .then((response) => {
         // const data = getState().content.content_list;
@@ -67,17 +67,19 @@ export const updateContentDB = (data,postID) => {
       .then((response) => {
         console.log(response)
         dispatch(updateContent(response.data));
-        // window.location.replace('/content');
-      });
+        window.location.replace('/contents');
+      }).catch((error) =>{
+        console.log(error)
+      })
   };
 };
 // 컨텐츠 삭제
-export const deleteContentDB = (postId) => {
+export const deleteContentDB = (postID) => {
   return async function (dispatch) {
-    await instance.delete(`/api/posts/${postId}`).then((response) => {
+    await instance.delete(`/api/posts/${postID}`).then((response) => {
       console.log("삭제리스폰스", response.data);
-      dispatch(deleteContent(postId));
-      window.location.replace("/");
+      dispatch(deleteContent(postID));
+      window.location.replace("/contents");
     });
   };
 };
@@ -116,7 +118,7 @@ const contentSlice = createSlice({
     },
     deleteContent: (state, action) => {
       const new_content = state.content_list.filter(
-        (v, i) => i !== action.payload
+        (v, i) => v.postID !== action.payload
       );
       state.content_list = new_content;
     },
