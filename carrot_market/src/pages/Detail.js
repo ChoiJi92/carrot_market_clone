@@ -7,6 +7,7 @@ import { deleteContentDB, loadDetailContentDB } from "../redux/modules/contentSl
 import profile from '../assets/css/profile.png'
 import { createCommentDB, loadCommentDB } from "../redux/modules/commentSlice";
 import CommentList from "../components/CommentList";
+import Like from "../components/Like";
 
 const Detail = () => {
   const params = useParams();
@@ -15,7 +16,7 @@ const Detail = () => {
   const [comment, setComment] = useState("")
   const [isloaded, setIsloaded] = useState(false);
   const data = useSelector((state) => state.content.detail_list)
-  console.log(data)
+  console.log('디테일데이터',data)
   const username = localStorage.getItem('username')
   const createComment=() => {
     dispatch(createCommentDB({
@@ -50,7 +51,7 @@ const Detail = () => {
           <div><img src={data.profileImage ? data.profileImage : profile}></img></div>
           <div className="name">
           <p style={{ fontSize: "15px", fontWeight: "600" }}>{data.nickname}</p>
-          <p style={{ fontSize: "15px" }}>서울특별시</p>
+          <p style={{ fontSize: "15px" }}>{data.address}</p>
           </div>
         </Profile>
         <Content>
@@ -72,9 +73,7 @@ const Detail = () => {
           {data.price}
           </p>
           <div>{data.content}</div>
-          <div>
-            <p>좋아요0개 ∙ 댓글0개</p>
-          </div>
+          <Like likeCnt={data.likeCnt} commentCnt={data.commentCnt} postID={data.postID}></Like>
         </Content>
         {username && 
         <>

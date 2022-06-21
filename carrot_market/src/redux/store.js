@@ -4,7 +4,7 @@ import commentReducer from './modules/commentSlice'
 const store = configureStore({
   reducer: {
     content:contentReducer,
-    comment:commentReducer
+    comment:commentReducer,
   },
 });
 

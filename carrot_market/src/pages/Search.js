@@ -12,6 +12,7 @@ const Search = () => {
   const data = useSelector((state) => state.content.content_list).filter((v) =>
     v.address.includes(params.search)
   );
+  const username = localStorage.getItem('username')
   const navigate = useNavigate();
   console.log(data);
   const color = orange[500];
@@ -19,12 +20,13 @@ const Search = () => {
     <Wrap>
       <Container>
         <p>인기 중고</p>
+        {data.length !== 0 ? 
         <CardList>
           {data.map((v) => (
             <Card
               key={v.id}
             >
-              <img src={v.imagefile} onClick={() => {
+              <img src={v.imagefile[0]} onClick={() => {
                 navigate(`/detail/${v.postID}`);
               }}></img>
               <h2>{v.title}</h2>
@@ -36,7 +38,11 @@ const Search = () => {
             </Card>
           ))}
         </CardList>
+        :
+        <div>아직 올라온 매물이 없어요 </div>
+            }
       </Container>
+      {username && 
       <Fab
         color="primary"
         aria-label="add"
@@ -52,6 +58,7 @@ const Search = () => {
       >
         <AddIcon />
       </Fab>
+}
     </Wrap>
   );
 };
