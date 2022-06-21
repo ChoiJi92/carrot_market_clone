@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import instance from "../../shared/axios";
-import axios from "axios";
 
 //미들웨어
 //login
