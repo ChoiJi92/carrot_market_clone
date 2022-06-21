@@ -1,13 +1,10 @@
-import React from "react";
+import React, { useCallback } from "react";
 import styled from "styled-components";
 import "../assets/css/modal.css";
 
 import instance from "../shared/axios";
 import { useDispatch } from "react-redux";
 import { loginUserDB } from "../redux/modules/userSlice";
-
-import KakaoLogin from "react-kakao-login";
-import { useNavigate } from "react-router-dom";
 
 import useGeolocation from "react-hook-geolocation";
 
@@ -18,24 +15,8 @@ const ModalSignup = (props) => {
   const passwordCheck_ref = React.useRef(null);
   const nickname_ref = React.useRef(null);
 
-  //버튼 비활성화
-  const [username, setUsername] = React.useState("");
-  const [nickname, setNickname] = React.useState("");
-  const [pw, setPw] = React.useState("");
-  const [pwCheck, setPwCheck] = React.useState("");
-  const [address, setAddress] = React.useState("");
-  const checkUsername = (e) => {
-    setUsername(e.target.value);
-  };
-  const checkNickname = (e) => {
-    setNickname(e.target.value);
-  };
-  const checkPw = (e) => {
-    setPw(e.target.value);
-  };
-  const checkPwCheck = (e) => {
-    setPwCheck(e.target.value);
-  };
+  // 모달 열기, 닫기를 부모로부터 받아옴
+  const { open, close } = props;
 
   // Geo location
   const { kakao } = window;
@@ -56,27 +37,25 @@ const ModalSignup = (props) => {
     geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
   };
 
-  //벨리데이션
-  const emailCheck = (email) => {
-    let _reg =
-      /^[0-9a-zA-Z]([-_.0-9a-zA-Z])*@[0-9a-zA-Z]([-_.0-9a-zA-Z])*.([a-zA-Z])*/;
-    //이메일 형식으로!
-    return _reg.test(email);
-  };
-  const passwordCheck = (password) => {
-    let _reg =
-      /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[@$!%*#?&])[0-9a-zA-Z@$!%*#?&]{3,10}$/;
-    //비밀번호는 3 ~ 10자 영문, 숫자 및 특수문자조합으로
-    return _reg.test(password);
-  };
-  const nicknameCheck = (nickname) => {
-    let _reg = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]{3,10}$/;
-    //닉네임은 3~8자 한글,영어,숫자
-    return _reg.test(nickname);
-  };
+  //아이디, 이메일, 비밀번호, 비밀번호 확인
+  const [username, setUsername] = React.useState("");
+  const [nickname, setNickname] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [passwordConfirm, setPasswordConfirm] = React.useState("");
+  const [address, setAddress] = React.useState("");
 
-  // 모달 열기, 닫기를 부모로부터 받아옴
-  const { open, close } = props;
+  //오류메시지 상태저장
+  const [usernameMessage, setUsernameMessage] = React.useState("");
+  const [nicknameMessage, setNicknameMessage] = React.useState("");
+  const [passwordMessage, setPasswordMessage] = React.useState("");
+  const [passwordConfirmMessage, setPasswordConfirmMessage] =
+    React.useState("");
+
+  // 유효성 검사
+  const [isUsername, setIsUsername] = React.useState(false);
+  const [isNickname, setIsNickname] = React.useState(false);
+  const [isPassword, setIsPassword] = React.useState(false);
+  const [isPasswordConfirm, setIsPasswordConfirm] = React.useState(false);
 
   //회원가입 데이터 서버에 보내기!
   const SignupAxios = async () => {
@@ -87,32 +66,6 @@ const ModalSignup = (props) => {
       password: password_ref.current.value,
       address: address,
     };
-    if (
-      username_ref.current.value === "" ||
-      password_ref.current.value === "" ||
-      nickname_ref.current.value === ""
-    ) {
-      window.alert("빈칸을 전부 채워주세요!");
-      return;
-    }
-    if (!emailCheck(username_ref.current.value)) {
-      window.alert("이메일 형식이 맞지 않습니다!");
-      return;
-    }
-    if (!passwordCheck(password_ref.current.value)) {
-      window.alert(
-        "비밀번호는 8 ~ 10자 영문, 숫자 및 특수문자조합으로 작성하세요!"
-      );
-      return;
-    }
-    if (!nicknameCheck(nickname_ref.current.value)) {
-      window.alert("닉네임은 3 ~ 8자 한글,영문,숫자!");
-      return;
-    }
-    if (password_ref.current.value !== passwordCheck_ref.current.value) {
-      window.alert("비밀번호가 일치하지 않습니다.");
-      return;
-    }
 
     await instance
       //서버에 users 인풋 값 보내주기
@@ -132,6 +85,78 @@ const ModalSignup = (props) => {
       });
   };
 
+  // username
+  const onChangeUsername = useCallback((e) => {
+    const usernameRegex =
+      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    const usernameCurrent = username_ref.current.value;
+    setUsername(usernameCurrent);
+
+    if (!usernameRegex.test(usernameCurrent)) {
+      setUsernameMessage("이메일 형식을 다시 한번 확인해 주세요.");
+      setIsUsername(false);
+    } else {
+      setUsernameMessage("알맞게 작성되었습니다 :)");
+      setIsUsername(true);
+    }
+  }, []);
+
+  // nickname
+  const onChangeNickname = useCallback((e) => {
+    const nicknameRegex = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]{3,10}$/;
+    //닉네임은 3~8자 한글,영어,숫자
+    const nicknameCurrent = nickname_ref.current.value;
+    setNickname(nicknameCurrent);
+
+    if (!nicknameRegex.test(nicknameCurrent)) {
+      setNicknameMessage("닉네임은 3~8자 한글,영어,숫자");
+      setIsNickname(false);
+    } else {
+      setNicknameMessage("알맞게 작성되었습니다 :)");
+      setIsNickname(true);
+    }
+  }, []);
+
+  // 비밀번호
+  const onChangePassword = useCallback((e) => {
+    const passwordRegex =
+      /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[@$!%*#?&])[0-9a-zA-Z@$!%*#?&]{3,10}$/;
+    //비밀번호는 3 ~ 10자 영문, 숫자 및 특수문자조합으로
+    const passwordCurrent = password_ref.current.value;
+    setPassword(passwordCurrent);
+
+    if (!passwordRegex.test(passwordCurrent)) {
+      setPasswordMessage("비밀번호는 3 ~ 10자 영문, 숫자 및 특수문자조합으로");
+      setIsPassword(false);
+    } else {
+      setPasswordMessage("알맞게 작성되었습니다 :)");
+      setIsPassword(true);
+    }
+  }, []);
+
+  // 비밀번호 확인
+  const onChangePasswordConfirm = useCallback(
+    (e) => {
+      const passwordConfirmCurrent = passwordCheck_ref.current.value;
+      setPasswordConfirm(passwordConfirmCurrent);
+
+      if (password === passwordConfirmCurrent) {
+        setPasswordConfirmMessage("비밀번호를 똑같이 입력했어요 :)");
+        setIsPasswordConfirm(true);
+      } else {
+        setPasswordConfirmMessage("비밀번호를 다시 한번 확인해 주세요.");
+        setIsPasswordConfirm(false);
+      }
+    },
+    [password]
+  );
+  const messageReset = () => {
+    setUsernameMessage(false);
+    setNicknameMessage(false);
+    setPasswordMessage(false);
+    setPasswordConfirm(false);
+  };
+
   return (
     // 모달창이 열릴때 openModal 클래스가 생성된다.
     <div className={open ? "openModal modal" : "modal"}>
@@ -144,6 +169,7 @@ const ModalSignup = (props) => {
               onClick={() => {
                 close();
                 setAddress("");
+                messageReset();
               }}
             >
               &times;
@@ -162,10 +188,18 @@ const ModalSignup = (props) => {
                   type="email"
                   ref={username_ref}
                   //버튼비활성화
-                  onChange={checkUsername}
+                  onChange={onChangeUsername}
                   required
                 ></input>
-                <MiniTitle>이메일로 아이디를 작성해주세요!</MiniTitle>
+                <MiniTitle>
+                  {username.length > 0 && (
+                    <span
+                      className={`message ${isUsername ? "success" : "error"}`}
+                    >
+                      {usernameMessage}
+                    </span>
+                  )}
+                </MiniTitle>
               </Input>
               <Input>
                 <label htmlFor="nickName">NickName</label>
@@ -174,10 +208,18 @@ const ModalSignup = (props) => {
                   type="name"
                   ref={nickname_ref}
                   //버튼비활성화
-                  onChange={checkNickname}
+                  onChange={onChangeNickname}
                   required
                 ></input>
-                <MiniTitle>3 ~ 8자 한글,영문,숫자로 작성</MiniTitle>
+                <MiniTitle>
+                  {nickname.length > 0 && (
+                    <span
+                      className={`message ${isNickname ? "success" : "error"}`}
+                    >
+                      {nicknameMessage}
+                    </span>
+                  )}
+                </MiniTitle>
               </Input>
               <Input>
                 <label htmlFor="password">PW</label>
@@ -186,10 +228,18 @@ const ModalSignup = (props) => {
                   type="password"
                   ref={password_ref}
                   //버튼비활성화
-                  onChange={checkPw}
+                  onChange={onChangePassword}
                   required
                 ></input>
-                <MiniTitle>3 ~ 10자 영문, 숫자 및 특수문자조합</MiniTitle>
+                <MiniTitle>
+                  {password.length > 0 && (
+                    <span
+                      className={`message ${isPassword ? "success" : "error"}`}
+                    >
+                      {passwordMessage}
+                    </span>
+                  )}
+                </MiniTitle>
               </Input>
               <Input>
                 <label htmlFor="confirmPassword">PW CHECK</label>
@@ -198,9 +248,20 @@ const ModalSignup = (props) => {
                   type="password"
                   ref={passwordCheck_ref}
                   //버튼비활성화
-                  onChange={checkPwCheck}
+                  onChange={onChangePasswordConfirm}
                   required
                 ></input>
+                <MiniTitle>
+                  {passwordConfirm.length > 0 && (
+                    <span
+                      className={`message ${
+                        isPasswordConfirm ? "success" : "error"
+                      }`}
+                    >
+                      {passwordConfirmMessage}
+                    </span>
+                  )}
+                </MiniTitle>
               </Input>
               <Input>
                 <label htmlFor="address">Address</label>
@@ -217,7 +278,19 @@ const ModalSignup = (props) => {
                 onClick={() => {
                   SignupAxios();
                 }}
-                disabled={!username || !nickname || !pw || !pwCheck || !address}
+                disabled={
+                  !(
+                    isNickname &&
+                    isUsername &&
+                    isPassword &&
+                    isPasswordConfirm &&
+                    username &&
+                    nickname &&
+                    password &&
+                    passwordConfirm &&
+                    address
+                  )
+                }
               >
                 회원가입
               </Btn>
@@ -242,45 +315,59 @@ const ModalLogin = (props) => {
   // const REDIRECT_URI =
   //   "http://54.180.86.234/oauth2/authorization/kakao?redirect_uri=http://localhost:3000";
   // const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-  const kakaoLogin = () => {
-    window.location.replace(
-      "http://54.180.86.234/oauth2/authorization/kakao?redirect_uri=http://localhost:3000",
-      "_blank"
-    );
-    window.location.replace("/");
-  };
 
-  //버튼 비활성화
+  //아이디, 이메일, 비밀번호, 비밀번호 확인
   const [username, setUsername] = React.useState("");
-  const [pw, setPw] = React.useState("");
-  const checkUsername = (e) => {
-    setUsername(e.target.value);
-  };
-  const checkPw = (e) => {
-    setPw(e.target.value);
-  };
+  const [password, setPassword] = React.useState("");
 
-  //이메일 체크 함수
-  const emailCheck = (email) => {
-    let _reg =
-      /^[0-9a-zA-Z]([-_.0-9a-zA-Z])*@[0-9a-zA-Z]([-_.0-9a-zA-Z])*.([a-zA-Z])*/;
-    return _reg.test(email);
-  };
+  //오류메시지 상태저장
+  const [usernameMessage, setUsernameMessage] = React.useState("");
+  const [passwordMessage, setPasswordMessage] = React.useState("");
 
-  const loginCheck = () => {
-    //벨리데이션
-    if (
-      username_ref.current.value === "" ||
-      password_ref.current.value === ""
-    ) {
-      window.alert("아이디와 비밀번호를 입력하세요!");
-      return;
-    }
-    if (!emailCheck(username_ref.current.value)) {
-      window.alert("이메일 형식이 맞지 않습니다!");
-      return;
+  // 유효성 검사
+  const [isUsername, setIsUsername] = React.useState(false);
+  const [isPassword, setIsPassword] = React.useState(false);
+
+  // username
+  const onChangeUsername = useCallback((e) => {
+    const usernameRegex =
+      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    const usernameCurrent = username_ref.current.value;
+    setUsername(usernameCurrent);
+
+    if (!usernameRegex.test(usernameCurrent)) {
+      setUsernameMessage("이메일 형식을 다시 한번 확인해 주세요.");
+      setIsUsername(false);
     } else {
+      setUsernameMessage("알맞게 작성되었습니다 :)");
+      setIsUsername(true);
     }
+  }, []);
+
+  // 비밀번호
+  const onChangePassword = useCallback((e) => {
+    const passwordRegex =
+      /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[@$!%*#?&])[0-9a-zA-Z@$!%*#?&]{3,10}$/;
+    //비밀번호는 3 ~ 10자 영문, 숫자 및 특수문자조합으로
+    const passwordCurrent = password_ref.current.value;
+    setPassword(passwordCurrent);
+
+    if (!passwordRegex.test(passwordCurrent)) {
+      setPasswordMessage("비밀번호는 3 ~ 10자 영문, 숫자 및 특수문자조합으로");
+      setIsPassword(false);
+    } else {
+      setPasswordMessage("알맞게 작성되었습니다 :)");
+      setIsPassword(true);
+    }
+  }, []);
+  //모달창 x아이콘으로 닫을 때 전에 메신지 남는 현상 제거
+  const messageReset = () => {
+    setPasswordMessage(false);
+    setUsernameMessage(false);
+  };
+
+  //모듈로 로그인 정보 전송
+  const loginCheck = () => {
     let users = {
       username: username_ref.current.value,
       password: password_ref.current.value,
@@ -291,6 +378,13 @@ const ModalLogin = (props) => {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const { open, close } = props;
 
+  //엔터키 꼽기
+  const onKeyPress = (e) => {
+    if (e.key === "Enter") {
+      loginCheck();
+    }
+  };
+
   return (
     // 모달창이 열릴때 openModal 클래스가 생성된다.
     <div className={open ? "openModal modal" : "modal"}>
@@ -300,7 +394,10 @@ const ModalLogin = (props) => {
             <button
               style={{ fontSize: "40px" }}
               className="close"
-              onClick={close}
+              onClick={() => {
+                close();
+                messageReset();
+              }}
             >
               &times;
             </button>
@@ -319,10 +416,17 @@ const ModalLogin = (props) => {
                   ref={username_ref}
                   required
                   //버튼비활성화
-                  onChange={checkUsername}
+                  onChange={onChangeUsername}
                 ></input>
-
-                <MiniTitle>이메일로 아이디를 작성해주세요!</MiniTitle>
+                <MiniTitle>
+                  {username.length > 0 && (
+                    <span
+                      className={`message ${isUsername ? "success" : "error"}`}
+                    >
+                      {usernameMessage}
+                    </span>
+                  )}
+                </MiniTitle>
               </Input>
 
               <Input>
@@ -332,16 +436,26 @@ const ModalLogin = (props) => {
                   type="password"
                   ref={password_ref}
                   //버튼 비활성화
-                  onChange={checkPw}
+                  onChange={onChangePassword}
+                  onKeyPress={onKeyPress}
                   required
                 ></input>
-                <MiniTitle>3 ~ 10자 영문, 숫자 및 특수문자조합</MiniTitle>
+                <MiniTitle>
+                  {password.length > 0 && (
+                    <span
+                      className={`message ${isPassword ? "success" : "error"}`}
+                    >
+                      {passwordMessage}
+                    </span>
+                  )}
+                </MiniTitle>
               </Input>
               <Btn
                 onClick={() => {
                   loginCheck();
                 }}
-                disabled={!username || !pw}
+                //버튼 비활성화
+                disabled={!(isUsername && isPassword && username && password)}
               >
                 로그인
               </Btn>
@@ -448,6 +562,9 @@ const MiniTitle = styled.p`
   color: #999494;
   font-size: 12px;
   text-align: left;
+  .message.error {
+    color: red;
+  }
 `;
 
 const Btn = styled.button`
