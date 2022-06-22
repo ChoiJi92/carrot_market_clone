@@ -14,8 +14,8 @@ const SearchNotFound = () => {
 const NotFoundWrap = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100vw;
-  height: 80vh;
+  width: 50vw;
+  height: 50vh;
   text-align: center;
   align-items: center;
   justify-content: center;

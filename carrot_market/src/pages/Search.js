@@ -6,6 +6,8 @@ import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import { orange } from "@mui/material/colors";
 import Like from "../components/Like";
+import ContentsNotFound from "../components/ContentsNotFound";
+import SearchNotFound from "../components/SearchNotFound";
 
 const Search = () => {
   const params = useParams();
@@ -39,7 +41,7 @@ const Search = () => {
           ))}
         </CardList>
         :
-        <div>아직 올라온 매물이 없어요 </div>
+        <SearchNotFound/>
             }
       </Container>
       {username && 

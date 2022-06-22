@@ -1,7 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import Like from './Like';
 
 const BestContent = () => {
     const data = useSelector((state)=>state.content.content_list).filter((v,i) => i < 7 )
@@ -15,23 +16,25 @@ const BestContent = () => {
             {data.map((v) => (
           <Card
             key={v.postID}
-            onClick={() => {
-              navigate(`/detail/${v.postID}`);
-            }}
+            
           >
-            <img src={v.imagefile}></img>
+            <img src={v.imagefile[0]} onClick={() => {
+              navigate(`/detail/${v.postID}`);
+            }}></img>
             <h2>{v.title}</h2>
             <div>{v.price}</div>
             <div>{v.address}</div>
-            <div>
-              <span>좋아요0개</span>
-              <span>댓글0개</span>
-            </div>
+            <Like
+              likeCnt={v.likeCnt}
+              commentCnt={v.commentCnt}
+              postID={v.postID}
+            ></Like>
           </Card>
         ))}
         </CardList>
         <div className='more'>
         <a href="/contents">인기매물 더 보기</a>
+       
         </div>
             </Container>
 

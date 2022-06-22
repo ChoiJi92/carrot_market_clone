@@ -13,17 +13,17 @@ const Write = () => {
   const params = useParams();
   const username = localStorage.getItem("username");
   const nickname = localStorage.getItem("nickname");
-  const data = useSelector((state) => state.content.content_list).filter(
+  const post = useSelector((state) => state.content.content_list).filter(
     (v) => v.postID === Number(params.id)
   );
-  console.log(data[0].imagefile)
-  const [region, setRegion] = useState(data[0]?.address);
-  const [title, setTitle] = useState(data[0]?.title);
-  const [content, setContent] = useState(data[0]?.content);
-  const [price, setPrice] = useState(data[0]?.price);
+  const [region, setRegion] = useState(post[0]?.address);
+  const [title, setTitle] = useState(post[0]?.title);
+  const [content, setContent] = useState(post[0]?.content);
+  const [price, setPrice] = useState(post[0]?.price);
   const [preview, setPreview] = useState(
-    data[0]?.imagefile ? data[0]?.imagefile : []
+    post[0]?.imagefile ? post[0]?.imagefile : []
   );
+  const [prevImage, setPrevImage] = useState(post[0]?.imagefile);
   const [image, setImage] = useState([]);
   // 이미지 미리보기 기능 구현
   const uploadImage = (e) => {
@@ -37,11 +37,10 @@ const Write = () => {
       reader.onload = () => {
         imagelist[i] = reader.result;
         setPreview([...preview, ...imagelist]);
-        console.log(preview)
       };
     }
     setImage([...filelist]);
-    e.target.value = ''
+    e.target.value = "";
   };
   const titleChange = (e) => {
     setTitle(e.target.value);
@@ -55,10 +54,8 @@ const Write = () => {
   const priceChange = (e) => {
     setPrice(e.target.value);
   };
-
   const addContent = async () => {
     const formData = new FormData();
-    console.log(image);
     image.forEach((file) => formData.append("file", file));
 
     const data = {
@@ -82,7 +79,7 @@ const Write = () => {
     const data = {
       // username: username,
       // nickname: nickname,
-      imagefile:data[0].imagefile,
+      imagefile: prevImage,
       title: title,
       price: price,
       content: content,
@@ -126,6 +123,7 @@ const Write = () => {
               <ImCancelCircle
                 onClick={() => {
                   setPreview(preview.filter((value, index) => index !== i));
+                  setPrevImage(prevImage.filter((val, idx) => idx !== i));
                 }}
                 size="25px"
                 style={{
@@ -167,7 +165,7 @@ const Write = () => {
           <option value="제주특별자치도">제주특별자치도</option>
         </select>
       </Nav>
-      <input
+     <input
         className="price"
         placeholder="₩ 가격"
         // type="number"
