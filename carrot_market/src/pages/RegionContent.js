@@ -6,11 +6,15 @@ import AddIcon from "@mui/icons-material/Add";
 import { orange } from "@mui/material/colors";
 import Like from "../components/Like";
 import { useState } from "react";
+import ContentsNotFound from "../components/ContentsNotFound";
 
 const RegionContent = () => {
-  const params = useParams()
-  const data = useSelector((state) => state.content.content_list).filter(v => v.address.includes(params.region.slice(0,2)))
+  const params = useParams();
+  const data = useSelector((state) => state.content.content_list).filter((v) =>
+    v.address.includes(params.region.slice(0, 2))
+  );
   const navigate = useNavigate();
+  const username = localStorage.getItem("username");
   const [region, setRegion] = useState(params.region);
   const regionChange = (e) => {
     setRegion(e.target.value);
@@ -40,37 +44,47 @@ const RegionContent = () => {
           <option value="제주특별자치도">제주특별자치도</option>
         </select>
       </Nav>
-      <CardList>
-        {data.map((v) => (
-          <Card key={v.postID}>
-            <img
-              src={v.imagefile[0]}
-              onClick={() => {
-                navigate(`/detail/${v.postID}`);
-              }}
-            ></img>
-            <h2>{v.title}</h2>
-            <div>{v.price}</div>
-            <div>{v.address}</div>
-            <Like likeCnt={v.likeCnt} commentCnt={v.commentCnt} postID={v.postID}></Like>
-          </Card>
-        ))}
-      </CardList>
-      <Fab
-        color="primary"
-        aria-label="add"
-        style={{
-          backgroundColor: color,
-          position: "fixed",
-          bottom: "10px",
-          right: "10px",
-        }}
-        onClick={() => {
-          navigate("/write");
-        }}
-      >
-        <AddIcon />
-      </Fab>
+      {data.length !== 0 ? (
+        <CardList>
+          {data.map((v) => (
+            <Card key={v.postID}>
+              <img
+                src={v.imagefile[0]}
+                onClick={() => {
+                  navigate(`/detail/${v.postID}`);
+                }}
+              ></img>
+              <h2>{v.title}</h2>
+              <div>{v.price}</div>
+              <div>{v.address}</div>
+              <Like
+                likeCnt={v.likeCnt}
+                commentCnt={v.commentCnt}
+                postID={v.postID}
+              ></Like>
+            </Card>
+          ))}
+        </CardList>
+      ) : (
+        <ContentsNotFound></ContentsNotFound>
+      )}
+      {username && (
+        <Fab
+          color="primary"
+          aria-label="add"
+          style={{
+            backgroundColor: color,
+            position: "fixed",
+            bottom: "10px",
+            right: "10px",
+          }}
+          onClick={() => {
+            navigate("/write");
+          }}
+        >
+          <AddIcon />
+        </Fab>
+      )}
     </Wrap>
   );
 };

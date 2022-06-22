@@ -28,7 +28,7 @@ const Like = ({ likeCnt, commentCnt,postID }) => {
   };
   // 좋아요 취소
   const deleteLike = async () => {
-    await instance.post(`/like//${postID}`);
+    await instance.post(`/like/${postID}`);
     setLike_count(like_count - 1);
     setLike(true)
   };
