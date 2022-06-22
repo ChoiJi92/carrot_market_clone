@@ -17,7 +17,7 @@ const KakaoLoginRedirect = () => {
     //닉네임 get
     const nickname = new URL(window.location.href).searchParams.get("nickname");
     const decodeName = decodeURI(decodeURIComponent(nickname));
-    console.log(decodeName);
+    console.log(decodeName, "닉네임");
     localStorage.setItem("nickname", decodeName);
 
     //profile 이미지 get
@@ -26,7 +26,7 @@ const KakaoLoginRedirect = () => {
     );
     console.log(profileImage);
     const decodeProfileImage = decodeURI(decodeURIComponent(profileImage));
-    console.log(decodeProfileImage);
+    console.log(decodeProfileImage, "profile");
     localStorage.setItem("profileImage", decodeProfileImage);
 
     //메인으로 보내기
