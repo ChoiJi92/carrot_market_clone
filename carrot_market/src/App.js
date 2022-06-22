@@ -11,9 +11,9 @@ import Footer from "./components/Footer";
 import { useDispatch } from "react-redux";
 import { loginUser } from "./redux/modules/userSlice";
 import { loadContentDB } from "./redux/modules/contentSlice";
-import KakaoAuth from "./shared/KakaoAuth";
 import KakaoLoginRedirect from "./pages/KakaoLoginRedirect";
 import RegionContent from "./pages/RegionContent";
+import PageNotFound from "../src/pages/PageNotFound";
 
 function App() {
   const dispatch = useDispatch();
@@ -47,6 +47,7 @@ function App() {
         <Route path="/search/" element={isloaded && <Search />} />
         <Route path="/search/:search" element={isloaded && <Search />} />
         <Route path="/oauth" element={<KakaoLoginRedirect />}></Route>
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
       <Footer />
     </div>
