@@ -40,7 +40,7 @@ const Write = () => {
         setPreview([...preview, ...imagelist]);
       };
     }
-    setImage([...filelist]);
+    setImage([...image,...filelist]);
     e.target.value = "";
   };
   const titleChange = (e) => {
@@ -61,7 +61,6 @@ const Write = () => {
   const addContent = async () => {
     const formData = new FormData();
     image.forEach((file) => formData.append("file", file));
-
     const data = {
       username: username,
       nickname: nickname,
