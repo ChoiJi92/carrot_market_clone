@@ -57,9 +57,8 @@ export const createContentDB = (formData) => {
         },
       })
       .then((response) => {
-        console.log(response);
         dispatch(createContent(response.data));
-        window.location.replace('/contents');
+        // window.location.replace('/contents');
       })
       .catch((error) => {
         console.log(error);

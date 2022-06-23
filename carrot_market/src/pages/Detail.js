@@ -21,15 +21,15 @@ const Detail = () => {
   const data = useSelector((state) => state.content.detail_list);
   const username = localStorage.getItem("username");
   const createComment = () => {
-    if(!comment){
-      window.alert('댓글을 입력해 주세요 :)')
-    }else{
-    dispatch(
-      createCommentDB({
-        postID: data.postID,
-        comment: comment,
-      })
-    );
+    if (!comment) {
+      window.alert("댓글을 입력해 주세요 :)");
+    } else {
+      dispatch(
+        createCommentDB({
+          postID: data.postID,
+          comment: comment,
+        })
+      );
     }
     setComment("");
   };
@@ -49,7 +49,7 @@ const Detail = () => {
       setIsloaded(true);
     }
     detailLoad();
-  }, [dispatch,params.id]);
+  }, [dispatch, params.id]);
   return (
     <>
       {isloaded && (
@@ -60,7 +60,8 @@ const Detail = () => {
               <Profile>
                 <div>
                   <img
-                    src={data.profileImage ? data.profileImage : profile} alt=""
+                    src={data.profileImage ? data.profileImage : profile}
+                    alt=""
                   ></img>
                 </div>
                 <div className="name">
@@ -110,9 +111,9 @@ const Detail = () => {
                 </div>
               </div>
               <p
-                style={{ color: "#868e96", fontSize: "15px", marginTop: "4px"}}
+                style={{ color: "#868e96", fontSize: "15px", marginTop: "4px" }}
               >
-                {data.modifiedAt?.slice(0,10)}
+                {data.modifiedAt?.slice(0, 10)}
               </p>
               <p
                 style={{
@@ -131,19 +132,17 @@ const Detail = () => {
               ></Like>
             </Content>
             {username && (
-              <>
-                <Comment>
-                  <input
-                    placeholder="댓글을 입력해 주세요 :)"
-                    value={comment}
-                    onChange={commentChange}
-                    onKeyPress={onKeyPress}
-                  ></input>
-                  <button onClick={createComment}>등록</button>
-                </Comment>
-                <CommentList></CommentList>
-              </>
+              <Comment>
+                <input
+                  placeholder="댓글을 입력해 주세요 :)"
+                  value={comment}
+                  onChange={commentChange}
+                  onKeyPress={onKeyPress}
+                ></input>
+                <button onClick={createComment}>등록</button>
+              </Comment>
             )}
+            <CommentList></CommentList>
           </Container>
         </>
       )}
@@ -183,7 +182,7 @@ const Profile = styled.div`
 const ProfileRight = styled.div`
   position: relative;
   width: 18%;
-  
+
   dl {
     width: 100%;
   }
@@ -234,7 +233,7 @@ const ProfileRight = styled.div`
     width: 31px;
     height: 24px;
     right: 0;
-    top:0;
+    top: 0;
     overflow: hidden;
     text-align: left;
     text-indent: -9999px;
