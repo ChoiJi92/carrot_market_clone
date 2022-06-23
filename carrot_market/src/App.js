@@ -11,7 +11,10 @@ import Footer from "./components/Footer";
 import { useDispatch } from "react-redux";
 import { loginUser } from "./redux/modules/userSlice";
 import { loadContentDB } from "./redux/modules/contentSlice";
-import KakaoLoginRedirect from "./pages/KakaoLoginRedirect";
+//소셜로그인
+import KakaoLoginRedirect from "./shared/KakaoLoginRedirect";
+import NaverLoginRedirect from "./shared/NaverLoginRedirect";
+import GoogleLoginRedirect from "./shared/GoogleLoginRedirect";
 import RegionContent from "./pages/RegionContent";
 import PageNotFound from "../src/pages/PageNotFound";
 
@@ -47,6 +50,8 @@ function App() {
         <Route path="/search/" element={isloaded && <Search />} />
         <Route path="/search/:search" element={isloaded && <Search />} />
         <Route path="/oauth" element={<KakaoLoginRedirect />}></Route>
+        <Route path="/oauth" element={<NaverLoginRedirect />}></Route>
+        <Route path="/oauth" element={<GoogleLoginRedirect />}></Route>
         <Route path="*" element={<PageNotFound />} />
       </Routes>
       <Footer />
