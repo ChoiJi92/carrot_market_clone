@@ -4,13 +4,13 @@
 
 ## 🥕 프로젝트명 : 당근마켓 클론 코딩
 
-![당근마켓]()
+<img width="1667" alt="메인페이지" src="https://user-images.githubusercontent.com/96029064/175263925-ad9baf82-741f-4976-94a7-6e487a640115.png">
 
 <br>
 
 #### 이번 프로젝트에서는 사람들이 자주 사용하는 당근마켓의 웹페이지를 클론 코딩을 했습니다. <br><br> 실제 당근마켓 웹페이지에 없는 로그인, 회원가입 기능, 소셜로그인, 로그인 후 권한을 바탕으로 글 CRUD와 댓글 CRUD, 무한 스크롤, ~~채팅기능~~을 추가하여 구현하였습니다! 🤗<br><br>
 
-[당근마켓](https://www.daangn.com/)
+[당근마켓 링크](https://www.daangn.com/)
 
 <br>
 
@@ -90,7 +90,7 @@
 
 <br/>
 
-https://youtube.com
+[시연 영상 링크](https://www.youtube.com/watch?v=Ddw6nH2uEbU)
 <br/>
 <br/>
 <br/>
