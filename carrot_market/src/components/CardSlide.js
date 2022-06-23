@@ -4,7 +4,6 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -53,7 +52,7 @@ const CardSlide = ({ image }) => {
     <Wrap>
       <Slider {...settings}>
         {image.map((v) => (
-          <img src={v}></img>
+          <img src={v} key={v} alt=""></img>
         ))}
       </Slider>
     </Wrap>

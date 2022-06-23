@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { Link } from "react-router-dom";
 const SearchNotFound = () => {
   return (
     <NotFoundWrap>
@@ -8,6 +8,7 @@ const SearchNotFound = () => {
         alt="당근"
       />
       <Title>검색 결과를 찾을 수 없습니다.</Title>
+      <Link to='/contents' style={{color:'#ff8a3a',textDecoration:'none',marginTop:'20px',fontSize:'20px' }}>홈으로 이동</Link>
     </NotFoundWrap>
   );
 };

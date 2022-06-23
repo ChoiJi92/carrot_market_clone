@@ -44,6 +44,7 @@ const Home = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 100px;
+  white-space: nowrap;
   h1 {
     margin-bottom: 10px;
     text-align: left;

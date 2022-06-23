@@ -18,7 +18,11 @@ const RegionContent = () => {
   const [region, setRegion] = useState(params.region);
   const regionChange = (e) => {
     setRegion(e.target.value);
-    navigate(`/region/${e.target.value}`);
+    if (e.target.value === "default") {
+      navigate(`/contents`);
+    } else {
+      navigate(`/region/${e.target.value}`);
+    }
   };
   const color = orange[500];
   return (
@@ -53,9 +57,10 @@ const RegionContent = () => {
                 onClick={() => {
                   navigate(`/detail/${v.postID}`);
                 }}
+                alt=""
               ></img>
               <h2>{v.title}</h2>
-              <div>{v.price}</div>
+              <div>{v.price}원</div>
               <div>{v.address}</div>
               <Like
                 likeCnt={v.likeCnt}

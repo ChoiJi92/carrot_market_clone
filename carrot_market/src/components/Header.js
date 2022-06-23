@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { ModalSignup, ModalLogin } from "../components/Modal"; //modal
+import profile from ".././assets//css/profile.jpeg";
 // import profile from "../../public/images/profile.png";
 
 const Header = () => {
@@ -16,7 +17,7 @@ const Header = () => {
 
   //로그인 상태 로컬스토리에 토큰 유무로 확인(null, 토큰값)
   const users = localStorage.getItem("token");
-
+  const profileImage = localStorage.getItem("profileImage");
   // 컴포넌트 렌더링 시 로그인 여부 체크
   // useEffect(() => {}, [user.isLogin]);
 
@@ -80,8 +81,7 @@ const Header = () => {
               borderRadius: "50px",
               marginLeft: "10px",
             }}
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUYi48xG2ZkMT6IEMlfCMPOAjESzMcbm0jmw&usqp=CAU"
-            // src={profile}
+            src={profileImage ? profileImage : profile}
             alt="프로필이미지"
           ></ProfileImage>
         )}
@@ -130,6 +130,7 @@ const LogoItem = styled.div`
   font-size: 16px;
   color: #ff8a3a;
   font-weight: bold;
+  white-space: nowrap;
   cursor: pointer;
   &:hover {
     color: #cccccc;
