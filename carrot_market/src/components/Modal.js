@@ -662,12 +662,13 @@ const GoogleBtn = styled.button`
 const ButtoninnerText = styled.a`
   margin: 0;
   font-size: 14px;
+  color:black;
   a:link {
     color: black;
   }
   a:visited {
     color: black;
   }
-  text-decoration: none; ;
+  text-decoration: none;
 `;
 export { ModalSignup, ModalLogin };
