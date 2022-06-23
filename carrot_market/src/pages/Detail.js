@@ -7,7 +7,7 @@ import {
   deleteContentDB,
   loadDetailContentDB,
 } from "../redux/modules/contentSlice";
-import profile from "../assets/css/profile.png";
+import profile from "../assets/css/profile.jpeg";
 import { createCommentDB, loadCommentDB } from "../redux/modules/commentSlice";
 import CommentList from "../components/CommentList";
 import Like from "../components/Like";
@@ -19,7 +19,6 @@ const Detail = () => {
   const [comment, setComment] = useState("");
   const [isloaded, setIsloaded] = useState(false);
   const data = useSelector((state) => state.content.detail_list);
-  console.log("디테일데이터", data);
   const username = localStorage.getItem("username");
   const createComment = () => {
     if(!comment){
@@ -50,7 +49,7 @@ const Detail = () => {
       setIsloaded(true);
     }
     detailLoad();
-  }, []);
+  }, [dispatch,params.id]);
   return (
     <>
       {isloaded && (
@@ -61,7 +60,7 @@ const Detail = () => {
               <Profile>
                 <div>
                   <img
-                    src={data.profileImage ? data.profileImage : profile}
+                    src={data.profileImage ? data.profileImage : profile} alt=""
                   ></img>
                 </div>
                 <div className="name">
@@ -111,9 +110,9 @@ const Detail = () => {
                 </div>
               </div>
               <p
-                style={{ color: "#868e96", fontSize: "15px", marginTop: "4px" }}
+                style={{ color: "#868e96", fontSize: "15px", marginTop: "4px"}}
               >
-                {data.modifiedAt}
+                {data.modifiedAt?.slice(0,10)}
               </p>
               <p
                 style={{
@@ -122,7 +121,7 @@ const Detail = () => {
                   fontWeight: "bold",
                 }}
               >
-                {data.price}
+                {data.price}원
               </p>
               <div>{data.content}</div>
               <Like
@@ -184,6 +183,7 @@ const Profile = styled.div`
 const ProfileRight = styled.div`
   position: relative;
   width: 18%;
+  
   dl {
     width: 100%;
   }

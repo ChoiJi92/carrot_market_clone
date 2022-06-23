@@ -4,20 +4,30 @@ import instance from "../../shared/axios";
 //middlewares
 // 컨텐츠 로드
 export const loadContentDB = () => {
-  return async function (dispatch, getState) {
-    // const page = getState().content.page;
+  return async function (dispatch) {
     await instance
-      // .get('/api/post/list/?page=1', { params: { page: page } })
-      .get("/api/posts")
+      .get('/api/posts', { params: { lastPostId : 99999 , size: 12 } })
+      // .get("/api/posts")
       .then((response) => {
-        // const data = getState().content.content_list;
         const data = response.data;
-        // const new_data = [...data, ...response.data];
-        // const new_page = page + 8;
         dispatch(loadContent({ data: data }));
       });
   };
 };
+// 무한스크롤시 컨텐츠를 더 로드
+export const loadMoreContentDB = ()=>{
+  return async function (dispatch, getState) {
+    const content = getState().content.content_list
+    const lastIndex = content[content.length-1].postID;
+    await instance
+      .get('/api/posts', { params: { lastPostId : lastIndex, size: 12 } })
+      // .get("/api/posts")
+      .then((response) => {
+        const new_data = [...content, ...response.data];
+        dispatch(loadContent({ data: new_data }));
+      });
+}
+}
 // 디테일 페이지에서 해당 컨텐츠만 로드
 export const loadDetailContentDB = (postID) => {
   return async function (dispatch) {
@@ -90,13 +100,10 @@ const contentSlice = createSlice({
     content_list: [],
     detail_list: [],
     search_list:[],
-    page: 0,
   },
   reducers: {
     loadContent: (state, action) => {
-      console.log(action.payload);
       state.content_list = action.payload.data;
-      // state.page = action.payload.page;
     },
     loadDetailContent: (state, action) => {
       state.detail_list = action.payload;

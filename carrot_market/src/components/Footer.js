@@ -54,6 +54,7 @@ ul{
 li{
     margin-bottom: 10px;
     font-size: large;
+    white-space: nowrap;
 }
 `
 const Top =styled.div`

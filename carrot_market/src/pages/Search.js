@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -6,7 +6,6 @@ import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import { orange } from "@mui/material/colors";
 import Like from "../components/Like";
-import ContentsNotFound from "../components/ContentsNotFound";
 import SearchNotFound from "../components/SearchNotFound";
 
 const Search = () => {
@@ -16,7 +15,6 @@ const Search = () => {
   );
   const username = localStorage.getItem('username')
   const navigate = useNavigate();
-  console.log(data);
   const color = orange[500];
   return (
     <Wrap>
@@ -30,7 +28,7 @@ const Search = () => {
             >
               <img src={v.imagefile[0]} onClick={() => {
                 navigate(`/detail/${v.postID}`);
-              }}></img>
+              }} alt=""></img>
               <h2>{v.title}</h2>
               <div style={{ color: "#868e96" }}>{v.address}</div>
               <div className="bottom">

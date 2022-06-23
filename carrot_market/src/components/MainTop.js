@@ -42,6 +42,7 @@ const Home = styled.div`
   letter-spacing: -0.4px;
   display: flex;
   flex-direction: column;
+  white-space: nowrap;
   h1 {
     margin-bottom: 10px;
     text-align: left;

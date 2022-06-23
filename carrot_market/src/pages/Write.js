@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { BsFillCameraFill } from "react-icons/bs";
 import { useParams } from "react-router-dom";
@@ -13,10 +13,11 @@ const Write = () => {
   const params = useParams();
   const username = localStorage.getItem("username");
   const nickname = localStorage.getItem("nickname");
+  const address = localStorage.getItem("address");
   const post = useSelector((state) => state.content.content_list).filter(
     (v) => v.postID === Number(params.id)
   );
-  const [region, setRegion] = useState(post[0]?.address);
+  // const [region, setRegion] = useState(post[0]?.address);
   const [title, setTitle] = useState(post[0]?.title);
   const [content, setContent] = useState(post[0]?.content);
   const [price, setPrice] = useState(post[0]?.price);
@@ -48,12 +49,15 @@ const Write = () => {
   const contentChange = (e) => {
     setContent(e.target.value);
   };
-  const regionChange = (e) => {
-    setRegion(e.target.value);
-  };
+  // const regionChange = (e) => {
+  //   setRegion(e.target.value);
+  // };
   const priceChange = (e) => {
-    setPrice(e.target.value);
+    setPrice(e.target.value)
+    // setPrice(e.target.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+    // setPrice(e.target.value.toLocaleString('ko-KR'));
   };
+  // 데이터 formData로 보내기
   const addContent = async () => {
     const formData = new FormData();
     image.forEach((file) => formData.append("file", file));
@@ -64,7 +68,7 @@ const Write = () => {
       title: title,
       price: price,
       content: content,
-      address: region,
+      address: address,
     };
     const json = JSON.stringify(data);
     const blob = new Blob([json], { type: "application/json" });
@@ -83,7 +87,7 @@ const Write = () => {
       title: title,
       price: price,
       content: content,
-      address: region,
+      address: address,
     };
     const json = JSON.stringify(data);
     const blob = new Blob([json], { type: "application/json" });
@@ -145,34 +149,14 @@ const Write = () => {
         onChange={titleChange}
         value={title ? title : ""}
       ></input>
-      <Nav>
-        <select onChange={regionChange} value={region}>
-          <option value="default">지역을 선택하세요</option>
-          <option value="서울특별시">서울특별시</option>
-          <option value="부산광역시">부산광역시</option>
-          <option value="대구광역시">대구광역시</option>
-          <option value="인천광역시">인천광역시</option>
-          <option value="광주광역시">광주광역시</option>
-          <option value="대전광역시">대전광역시</option>
-          <option value="울산광역시">울산광역시</option>
-          <option value="세종특별자치시">세종특별자치시</option>
-          <option value="충청북도">충청북도</option>
-          <option value="충청남도">충청남도</option>
-          <option value="전라북도">전라북도</option>
-          <option value="전라남도">전라남도</option>
-          <option value="경상북도">경상북도</option>
-          <option value="경상남도">경상남도</option>
-          <option value="제주특별자치도">제주특별자치도</option>
-        </select>
-      </Nav>
-     <input
+      <input
         className="price"
         placeholder="₩ 가격"
         // type="number"
         onChange={priceChange}
-        value={price ? price : ""}
-        // value={price}
+        value= {price ? price : ""}
       ></input>
+      <input id="region" className="region" value={address} readOnly></input>
       <textarea
         className="content"
         onChange={contentChange}
@@ -181,26 +165,14 @@ const Write = () => {
       ></textarea>
       {!params.id ? (
         <Btn
-          disabled={
-            !title ||
-            preview.length === 0 ||
-            !content ||
-            !price ||
-            region === "default"
-          }
+          disabled={!title || preview.length === 0 || !content || !price}
           onClick={addContent}
         >
           등록 하기
         </Btn>
       ) : (
         <Btn
-          disabled={
-            !title ||
-            preview.length === 0 ||
-            !content ||
-            !price ||
-            region === "default"
-          }
+          disabled={!title || preview.length === 0 || !content || !price}
           onClick={updateContent}
         >
           수정 하기
@@ -231,6 +203,10 @@ const Container = styled.div`
   }
   .title {
     font-size: large;
+  }
+  .region {
+    font-size: medium;
+    padding-bottom: 15px;
   }
   .price {
     ::-webkit-outer-spin-button,  // number input에 오른쪽 화살표 없애는 css
@@ -305,15 +281,15 @@ const ImageContainer = styled.div`
     color: black;
   }
 `;
-const Nav = styled.nav`
-  width: 80%;
-  margin-bottom: 30px;
-  select {
-    border: 1px solid;
-    border-radius: 5px;
-    padding: 10px;
-    width: 100%;
-    height: 50px;
-  }
-`;
+// const Nav = styled.nav`
+//   width: 80%;
+//   margin-bottom: 30px;
+//   select {
+//     border: 1px solid;
+//     border-radius: 5px;
+//     padding: 10px;
+//     width: 100%;
+//     height: 50px;
+//   }
+// `;
 export default Write;

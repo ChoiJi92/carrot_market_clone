@@ -14,10 +14,12 @@ export const loginUserDB = (users) => {
         const accessToken = response.data.accessToken;
         const username = response.data.username;
         const nickname = response.data.nickname;
+        const address = response.data.address;
         //서버에서 받은 토큰 저장
         localStorage.setItem("token", accessToken);
         localStorage.setItem("username", username);
         localStorage.setItem("nickname", nickname);
+        localStorage.setItem("address", address);
         // 저장된 토큰으로 login 여부 확인
         if (accessToken) {
           dispatch(loginUser(true));
@@ -26,8 +28,7 @@ export const loginUserDB = (users) => {
       })
       .catch(function (error) {
         // 로그인 실패 시 에러메시지
-        console.log(error);
-        window.alert(error.response.data.errorMessage);
+        window.alert(error.response.data.message);
       });
   };
 };

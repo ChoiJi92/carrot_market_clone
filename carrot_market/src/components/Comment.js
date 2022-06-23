@@ -6,7 +6,7 @@ import {
   updateCommentDB,
 } from "../redux/modules/commentSlice";
 import { useParams } from "react-router-dom";
-import profile from '../assets/css/profile.png'
+import profile from '../assets/css/profile.jpeg'
 
 const Comment = ({ data }) => {
   const dispatch = useDispatch();
@@ -36,12 +36,12 @@ const Comment = ({ data }) => {
   };
   return (
     <List key={data.commentID}>
-        <img src={data.profileImage ? data.profileImage : profile}></img>
+        <img src={data.profileImage ? data.profileImage : profile} alt=""></img>
       <div className="nickname">{data.nickname}</div>
       {!isedit ? (
         <>
           <div className="comment">{input}</div>
-          <div className="date">{data.modifiedAtComment}</div>
+          <div className="date">{data.modifiedAtComment?.slice(0,10)}</div>
           {nickname === data.nickname ? (
             <Btn>
               <button
@@ -117,6 +117,7 @@ const List = styled.div`
   }
   .date {
     width: 15%;
+    text-align: right;
   }
 `;
 const Btn = styled.div`

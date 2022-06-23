@@ -12,7 +12,7 @@ const Like = ({ likeCnt, commentCnt,postID }) => {
   useEffect(() => {
     async function likeLoad() {
       await instance.get(`/like/${postID}`).then((response) => {
-        console.log(response)
+
         setLike(response.data);
       });
       setIsloaded(true);

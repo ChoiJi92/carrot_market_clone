@@ -1,23 +1,48 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import { orange } from "@mui/material/colors";
 import Like from "../components/Like";
+import { loadContentDB, loadMoreContentDB } from "../redux/modules/contentSlice";
 
 const Contents = () => {
   const data = useSelector((state) => state.content.content_list);
   const navigate = useNavigate();
+  const dispatch = useDispatch()
   const username = localStorage.getItem("username");
-  console.log(data);
   const [region, setRegion] = useState();
   const regionChange = (e) => {
     setRegion(e.target.value);
-    console.log((e.target.value));
     navigate(`/region/${e.target.value}`);
   };
+  const [target, setTarget] = useState(null);
+    // 무한스크롤 관련 intersection observer
+    // page를 넘겨주면서 백엔드 쪽에서 몇번부터 시작해서 가져올지
+    const onIntersect = async ([entry], observer) => {
+        //entry.isIntersecting은 내가 지금 target을 보고있니?라는 뜻 그 요소가 화면에 들어오면 true 그전엔 false
+        if (entry.isIntersecting) {
+            observer.unobserve(entry.target); // 이제 그 target을 보지 않겠다는 뜻
+            await dispatch(loadMoreContentDB());
+        }
+    };
+    useEffect(() => {
+        let observer;
+        if (target) {
+            observer = new IntersectionObserver(onIntersect, {
+                threshold: 1,
+            });
+            observer.observe(target); // target을 보겠다!
+        }
+        return () => {
+            observer && observer.disconnect();
+        };
+    }, [target]);
+
+
+
   const color = orange[500];
   return (
     <Wrap>
@@ -43,16 +68,17 @@ const Contents = () => {
         </select>
       </Nav>
       <CardList>
-        {data.map((v) => (
-          <Card key={v.postID}>
+        {data.map((v,i) => (
+          <Card key={v.postID} ref={i === data.length - 1 ? setTarget : null}>
             <img
               src={v.imagefile[0]}
               onClick={() => {
                 navigate(`/detail/${v.postID}`);
               }}
+              alt=""
             ></img>
             <h2>{v.title}</h2>
-            <div>{v.price}</div>
+            <div>{v.price}원</div>
             <div>{v.address}</div>
             <Like
               likeCnt={v.likeCnt}
