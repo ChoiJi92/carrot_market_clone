@@ -67,21 +67,26 @@
 
 1. 메인페이지
 
-![메인페이지](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/45912cb3-5c6d-4199-b2a8-91c4b9d4df88/%E1%84%86%E1%85%A6%E1%84%8B%E1%85%B5%E1%86%AB.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220623%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220623T043311Z&X-Amz-Expires=86400&X-Amz-Signature=f82800410788500178d621252186735dbe590e7f905605fc0156238939eb5b85&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25E1%2584%2586%25E1%2585%25A6%25E1%2584%258B%25E1%2585%25B5%25E1%2586%25AB.png%22&x-id=GetObject)
+<img width="931" alt="스크린샷 2022-08-07 오후 10 27 09" src="https://user-images.githubusercontent.com/96029064/183293117-9631fbc5-b574-4a09-abe5-91f12964dbd6.png">
+
 
 2. 로그인페이지 (모달창으로)
 
-![로그인페이지](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/8b69d3e3-7f0d-4275-99e8-ca7c1efd9944/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2022-06-17_%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB_11.55.57.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220623%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220623T043511Z&X-Amz-Expires=86400&X-Amz-Signature=4ea0d2459b5ed5e5e2f8af8ce93a7e45dfd194b0aa4da35f8a20f15f19f7ebc9&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25E1%2584%2589%25E1%2585%25B3%25E1%2584%258F%25E1%2585%25B3%25E1%2584%2585%25E1%2585%25B5%25E1%2586%25AB%25E1%2584%2589%25E1%2585%25A3%25E1%2586%25BA%25202022-06-17%2520%25E1%2584%258B%25E1%2585%25A9%25E1%2584%258C%25E1%2585%25A5%25E1%2586%25AB%252011.55.57.png%22&x-id=GetObject)
+<img width="898" alt="스크린샷 2022-08-07 오후 10 30 32" src="https://user-images.githubusercontent.com/96029064/183293205-d3f4a205-4cb5-4577-9459-7b40af2f9517.png">
+
+
 
 3. 회원가입페이지 (모달창으로)
 
-![회원가입페이지](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/f03c0986-55f4-40c4-ad93-817ec2fbde9f/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2022-06-17_%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB_11.54.39.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220623%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220623T043616Z&X-Amz-Expires=86400&X-Amz-Signature=4c50911d1b8c3d273f169106b1c663dcb4285fb88c3c8ac50c60245e8e6d3b7d&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25E1%2584%2589%25E1%2585%25B3%25E1%2584%258F%25E1%2585%25B3%25E1%2584%2585%25E1%2585%25B5%25E1%2586%25AB%25E1%2584%2589%25E1%2585%25A3%25E1%2586%25BA%25202022-06-17%2520%25E1%2584%258B%25E1%2585%25A9%25E1%2584%258C%25E1%2585%25A5%25E1%2586%25AB%252011.54.39.png%22&x-id=GetObject)
+<img width="931" alt="스크린샷 2022-08-07 오후 10 26 28" src="https://user-images.githubusercontent.com/96029064/183293136-ef7fd864-22d4-4b5d-be5d-dd6b6785808a.png">
+
 
 4. 게시글 조회페이지
    ![게시글 조회페이지](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/f438e072-64f7-4c61-b2cd-5fc57d17c0ea/%E1%84%85%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%B3.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220623%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220623T043712Z&X-Amz-Expires=86400&X-Amz-Signature=56134ed560a47d5d71e74a0037588020e0419c9111bc9a60464d552144b4c7b6&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25E1%2584%2585%25E1%2585%25B5%25E1%2584%2589%25E1%2585%25B3%25E1%2584%2590%25E1%2585%25B3.png%22&x-id=GetObject)
 
 5. 게시글 상세페이지
-   ![게시글 상세페이지](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/26f15d8f-e6c7-4aa8-bf8d-f9d0688b7bd4/%E1%84%89%E1%85%A1%E1%86%BC%E1%84%89%E1%85%A6%E1%84%91%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%8C%E1%85%B5.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220623%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220623T043746Z&X-Amz-Expires=86400&X-Amz-Signature=82d4207c2d916201d462b53dae455238fa26fbb09ce4ac08b34cc53da8743681&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25E1%2584%2589%25E1%2585%25A1%25E1%2586%25BC%25E1%2584%2589%25E1%2585%25A6%25E1%2584%2591%25E1%2585%25A6%25E1%2584%258B%25E1%2585%25B5%25E1%2584%258C%25E1%2585%25B5.png%22&x-id=GetObject)
+
+<img width="1346" alt="스크린샷 2022-08-07 오후 10 28 21" src="https://user-images.githubusercontent.com/96029064/183293145-269ed675-8937-4678-b6c8-9a0d6139dce3.png">
 
 <br/>
 <br/>
