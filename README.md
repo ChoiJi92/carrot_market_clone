@@ -82,7 +82,9 @@
 
 
 4. 게시글 조회페이지
-   ![게시글 조회페이지](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/f438e072-64f7-4c61-b2cd-5fc57d17c0ea/%E1%84%85%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%B3.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220623%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220623T043712Z&X-Amz-Expires=86400&X-Amz-Signature=56134ed560a47d5d71e74a0037588020e0419c9111bc9a60464d552144b4c7b6&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25E1%2584%2585%25E1%2585%25B5%25E1%2584%2589%25E1%2585%25B3%25E1%2584%2590%25E1%2585%25B3.png%22&x-id=GetObject)
+
+<img width="1440" alt="스크린샷 2022-08-08 오후 8 36 59" src="https://user-images.githubusercontent.com/96029064/183409524-b7fc57e5-64eb-44de-b261-3167ed600c28.png">
+
 
 5. 게시글 상세페이지
 
